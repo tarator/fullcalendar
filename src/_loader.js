@@ -53,6 +53,7 @@ js('basic/BasicEventRenderer.js');
 
 js('agenda/AgendaWeekView.js');
 js('agenda/AgendaDayView.js');
+js('agenda/AgendaDayViewMultipleSources.js');
 js('agenda/AgendaView.js');
 js('agenda/AgendaEventRenderer.js');
 
