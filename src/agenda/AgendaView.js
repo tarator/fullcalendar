@@ -173,6 +173,8 @@ function AgendaView(element, calendar, viewName) {
 		var maxd;
 		var minutes;
 		var slotNormal = opt('slotMinutes') % 15 == 0;
+		var kabinen = calendar.options["kabinen"];
+		
 		s =
 			"<table style='width:100%' class='fc-agenda-days fc-border-separate' cellspacing='0'>" +
 			"<thead>" +
@@ -180,7 +182,7 @@ function AgendaView(element, calendar, viewName) {
 			"<th class='fc-agenda-axis " + headerClass + "'>&nbsp;</th>";
 		for (i=0; i<colCnt; i++) {
 			s +=
-				"<th class='fc- fc-col" + i + ' ' + headerClass + "'/>"; // fc- needed for setDayID
+				"<th style='bg-color:red;' colspan='"+kabinen.count+"'class='fc- fc-col" + i + ' ' + headerClass + "'/>"; // fc- needed for setDayID
 		}
 		s +=
 			"<th class='fc-agenda-gutter " + headerClass + "'>&nbsp;</th>" +
@@ -190,14 +192,17 @@ function AgendaView(element, calendar, viewName) {
 			"<tr>" +
 			"<th class='fc-agenda-axis " + headerClass + "'>&nbsp;</th>";
 		for (i=0; i<colCnt; i++) {
-			s +=
-				"<td class='fc- fc-col" + i + ' ' + contentClass + "'>" + // fc- needed for setDayID
-				"<div>" +
-				"<div class='fc-day-content'>" +
-				"<div style='position:relative'>&nbsp;</div>" +
-				"</div>" +
-				"</div>" +
-				"</td>";
+			for(var j=0; j<kabinen.count; j++){
+				s +=
+					"<td class='fc- fc-col" + i + ' ' + contentClass + "'>" + // fc- needed for setDayID
+					"<div>" +
+					"<div class='fc-day-content'>" +
+					"<div style='position:relative'>&nbsp;</div>" +
+					"</div>" +
+					"</div>" +
+					"</td>";
+			}
+			
 		}
 		s +=
 			"<td class='fc-agenda-gutter " + contentClass + "'>&nbsp;</td>" +

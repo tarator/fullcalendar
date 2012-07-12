@@ -12,6 +12,7 @@
 		var y = date.getFullYear();
 		
 		$('#calendar').fullCalendar({
+			kabinen:  {count:4, names: new Array("Kabine1", "Kabine2", "Kabine3", "Kabine4")},
 			header: {
 				left: 'prev,next today',
 				center: 'title',
@@ -28,7 +29,8 @@
 				[ //EventSource 1
 					{
 						title: 'All Day Event',
-						start: new Date(y, m, 1),					
+						start: new Date(y, m, 1),
+						column: "Kabine 2"
 					},
 					{
 						title: 'Long Event',
@@ -42,12 +44,14 @@
 						title: 'Repeating Event',
 						start: new Date(y, m, d-3, 16, 0),
 						allDay: false,
+						column: "Kabine 1"
 					},
 					{
 						id: 999,
 						title: 'Repeating Event',
 						start: new Date(y, m, d+4, 16, 0),
 						allDay: false,
+						column: "Kabine 2"
 					}
 				 
 				],
@@ -98,6 +102,7 @@ body {
 </style>
 </head>
 <body>
+	<h1>Hello World!</h1>
 	<div id='calendar'></div>
 </body>
 </html>

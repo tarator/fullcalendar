@@ -15,8 +15,6 @@ function AgendaDayViewMultipleSources(element, calendar) {
 	var renderAgenda = t.renderAgenda;
 	var formatDate = calendar.formatDate;
 	
-	
-	
 	function render(date, delta) {
 		if (delta) {
 			addDays(date, delta);
