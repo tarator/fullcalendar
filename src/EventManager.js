@@ -13,7 +13,6 @@ var eventGUID = 1;
 function EventManager(options, _sources) {
 	var t = this;
 	
-	
 	// exports
 	t.isFetchNeeded = isFetchNeeded;
 	t.fetchEvents = fetchEvents;
@@ -24,7 +23,6 @@ function EventManager(options, _sources) {
 	t.removeEvents = removeEvents;
 	t.clientEvents = clientEvents;
 	t.normalizeEvent = normalizeEvent;
-	
 	
 	// imports
 	var trigger = t.trigger;

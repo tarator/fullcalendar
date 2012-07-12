@@ -108,55 +108,53 @@
 
 </script>
 <style type='text/css'>
+body {
+	margin-top: 40px;
+	text-align: center;
+	font-size: 13px;
+	font-family: "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
+}
 
-	body {
-		margin-top: 40px;
-		text-align: center;
-		font-size: 13px;
-		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
-		}
+#calendar {
+	width: 900px;
+	float: left;
+}
 
-	#calendar {
-		width: 900px;
-		float: left;
-		}
-		
-	#external-events {
-		position: relative;
-		left: 50px;
-		text-align: left;
-		float: left;
-		width: 140px;
-		padding: 10px;
-		border: 1px solid #aaa;
-		background: #ccc;
-		}
-		
-	.external-event {
-		height: 20px;
-		line-height: 20px;
-		color: #fff;
-		background: blue;
-		margin-bottom: 10px;
-		padding-left: 5px;
-		cursor: pointer;
-		}
-		
-	#calendar2 {
-		width: 900px;
-		margin-top: 50px;
-		}
+#external-events {
+	position: relative;
+	left: 50px;
+	text-align: left;
+	float: left;
+	width: 140px;
+	padding: 10px;
+	border: 1px solid #aaa;
+	background: #ccc;
+}
 
+.external-event {
+	height: 20px;
+	line-height: 20px;
+	color: #fff;
+	background: blue;
+	margin-bottom: 10px;
+	padding-left: 5px;
+	cursor: pointer;
+}
+
+#calendar2 {
+	width: 900px;
+	margin-top: 50px;
+}
 </style>
 </head>
 <body>
-<div id='calendar'></div>
-<div id='external-events'>
-	<div class='external-event'>Draggable 1</div>
-	<div class='external-event'>Draggable 2</div>
-	<div class='external-event for-calendar2'>Draggable 3</div>
-</div>
-<div style='clear:both'></div>
-<div id='calendar2'></div>
+	<div id='calendar'></div>
+	<div id='external-events'>
+		<div class='external-event'>Draggable 1</div>
+		<div class='external-event'>Draggable 2</div>
+		<div class='external-event for-calendar2'>Draggable 3</div>
+	</div>
+	<div style='clear: both'></div>
+	<div id='calendar2'></div>
 </body>
 </html>

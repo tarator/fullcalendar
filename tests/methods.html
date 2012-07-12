@@ -128,61 +128,84 @@
 
 </script>
 <style>
-
-	button {
-		font-size: 11px;
-	}
-
+button {
+	font-size: 11px;
+}
 </style>
 </head>
-<body style='font-size:12px'>
-<p>
+<body style='font-size: 12px'>
+	<p>
 
-<button onclick="cal.fullCalendar('prev')">prev</button>
-<button onclick="cal.fullCalendar('next')">next</button>
-<button onclick="cal.fullCalendar('today')">today</button>
-<button onclick="cal.fullCalendar('gotoDate', 1999, 9, 31)">Oct 31 1999</button>
-<button onclick="cal.fullCalendar('gotoDate', new Date(1999, 9, 30))">Oct 30 1999 (Date)</button>
-<button onclick="cal.fullCalendar('incrementDate', 1, 1, 1)">+1 +1 +1</button>
-<button onclick="cal.fullCalendar('incrementDate', -1, -1, -1)">-1 -1 -1</button>
+		<button onclick="cal.fullCalendar('prev')">prev</button>
+		<button onclick="cal.fullCalendar('next')">next</button>
+		<button onclick="cal.fullCalendar('today')">today</button>
+		<button onclick="cal.fullCalendar('gotoDate', 1999, 9, 31)">Oct
+			31 1999</button>
+		<button onclick="cal.fullCalendar('gotoDate', new Date(1999, 9, 30))">Oct
+			30 1999 (Date)</button>
+		<button onclick="cal.fullCalendar('incrementDate', 1, 1, 1)">+1
+			+1 +1</button>
+		<button onclick="cal.fullCalendar('incrementDate', -1, -1, -1)">-1
+			-1 -1</button>
 
-<button onclick="updateEventStart()">update event start</button>
-<button onclick="updateRepeatingEvent()">update repeating event</button>
-<button onclick="renderEvent(false)">render new event</button>
-<button onclick="renderEvent(true)">render new sticky event</button>
-<br />
+		<button onclick="updateEventStart()">update event start</button>
+		<button onclick="updateRepeatingEvent()">update repeating
+			event</button>
+		<button onclick="renderEvent(false)">render new event</button>
+		<button onclick="renderEvent(true)">render new sticky event</button>
+		<br />
 
-<button onclick="cal.fullCalendar('removeEvents')">remove all</button>
-<button onclick="cal.fullCalendar('removeEvents', 999)">remove repeating events</button>
-<button onclick="cal.fullCalendar('removeEvents', function(e){return !e.allDay})">remove timed events</button>
-<button onclick="console.log(cal.fullCalendar('clientEvents'))">log events</button>
-<button onclick="console.log(cal.fullCalendar('clientEvents', '999'))">log repeating events</button>
-<button onclick="console.log(cal.fullCalendar('clientEvents', function(e){return e.allDay}))">log all-day events</button>
-<br />
+		<button onclick="cal.fullCalendar('removeEvents')">remove all</button>
+		<button onclick="cal.fullCalendar('removeEvents', 999)">remove
+			repeating events</button>
+		<button
+			onclick="cal.fullCalendar('removeEvents', function(e){return !e.allDay})">remove
+			timed events</button>
+		<button onclick="console.log(cal.fullCalendar('clientEvents'))">log
+			events</button>
+		<button onclick="console.log(cal.fullCalendar('clientEvents', '999'))">log
+			repeating events</button>
+		<button
+			onclick="console.log(cal.fullCalendar('clientEvents', function(e){return e.allDay}))">log
+			all-day events</button>
+		<br />
 
-<button onclick="cal.fullCalendar('addEventSource', staticEvents)">+ static events</button>
-<button onclick="cal.fullCalendar('removeEventSource', staticEvents)">- static events</button>
-<button onclick="cal.fullCalendar('addEventSource', gcalFeed)">+ gcal</button>
-<button onclick="cal.fullCalendar('removeEventSource', gcalFeed)">- gcal</button>
-<button onclick="cal.fullCalendar('addEventSource', jsonFeed)">+ json</button>
-<button onclick="cal.fullCalendar('removeEventSource', jsonFeed)">- json</button>
+		<button onclick="cal.fullCalendar('addEventSource', staticEvents)">+
+			static events</button>
+		<button onclick="cal.fullCalendar('removeEventSource', staticEvents)">-
+			static events</button>
+		<button onclick="cal.fullCalendar('addEventSource', gcalFeed)">+
+			gcal</button>
+		<button onclick="cal.fullCalendar('removeEventSource', gcalFeed)">-
+			gcal</button>
+		<button onclick="cal.fullCalendar('addEventSource', jsonFeed)">+
+			json</button>
+		<button onclick="cal.fullCalendar('removeEventSource', jsonFeed)">-
+			json</button>
 
-<button onclick="cal.fullCalendar('rerenderEvents')">rerender events</button>
-<button onclick="cal.fullCalendar('refetchEvents')">refetch events</button>
-<br />
+		<button onclick="cal.fullCalendar('rerenderEvents')">rerender
+			events</button>
+		<button onclick="cal.fullCalendar('refetchEvents')">refetch
+			events</button>
+		<br />
 
-<button onclick="cal.fullCalendar('changeView', 'month')">change to month</button>
-<button onclick="cal.fullCalendar('changeView', 'basicWeek')">change to basicWeek</button>
-<button onclick="cal.fullCalendar('changeView', 'basicDay')">change to basicDay</button>
-<button onclick="getView()">getView</button>
-<button onclick="getDate()">getDate</button>
-<button onclick="optionGetter()">option getter</button>
-<button onclick="cal.width(1100)">change width (passive)</button>
-<button onclick="cal.fullCalendar('render')">render</button>
-<button onclick="cal.fullCalendar('option', 'height', 1000)">change height</button>
+		<button onclick="cal.fullCalendar('changeView', 'month')">change
+			to month</button>
+		<button onclick="cal.fullCalendar('changeView', 'basicWeek')">change
+			to basicWeek</button>
+		<button onclick="cal.fullCalendar('changeView', 'basicDay')">change
+			to basicDay</button>
+		<button onclick="getView()">getView</button>
+		<button onclick="getDate()">getDate</button>
+		<button onclick="optionGetter()">option getter</button>
+		<button onclick="cal.width(1100)">change width (passive)</button>
+		<button onclick="cal.fullCalendar('render')">render</button>
+		<button onclick="cal.fullCalendar('option', 'height', 1000)">change
+			height</button>
 
-</p>
-<div id='loading' style='position:absolute;display:none'>loading...</div>
-<div id='calendar' style='width:70%;margin:20px auto 0;font-family:arial'></div>
+	</p>
+	<div id='loading' style='position: absolute; display: none'>loading...</div>
+	<div id='calendar'
+		style='width: 70%; margin: 20px auto 0; font-family: arial'></div>
 </body>
 </html>

@@ -4,9 +4,9 @@ fcViews.agendaDayMultipleSources = AgendaDayViewMultipleSources;
 function AgendaDayViewMultipleSources(element, calendar) {
 	var t = this;
 	
-	
 	// exports
 	t.render = render;
+	t.seperateEventSources = 1;
 	
 	
 	// imports
@@ -29,7 +29,9 @@ function AgendaDayViewMultipleSources(element, calendar) {
 		t.title = formatDate(date, opt('titleFormat'));
 		t.start = t.visStart = start;
 		t.end = t.visEnd = end;
+		
 		renderAgenda(1);
+		
 	}
 	
 

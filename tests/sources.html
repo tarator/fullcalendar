@@ -148,33 +148,30 @@
 
 </script>
 <style>
+.red-event,.red-event .fc-event-skin {
+	background: red !important;
+}
 
-	.red-event,
-	.red-event .fc-event-skin {
-		background: red !important;
-	}
-	
-	.yellow-event,
-	.yellow-event .fc-event-skin {
-		background: yellow !important;
-	}
-	
-	.black-text-event,
-	.black-text-event .fc-event-skin {
-		color: #000 !important;
-	}
+.yellow-event,.yellow-event .fc-event-skin {
+	background: yellow !important;
+}
 
-	button {
-		font-size: 11px;
-	}
+.black-text-event,.black-text-event .fc-event-skin {
+	color: #000 !important;
+}
 
+button {
+	font-size: 11px;
+}
 </style>
 </head>
-<body style='font-size:12px'>
-<div id='loading' style='position:absolute;top:0;left:0;display:none'>loading...</div>
-<p>
-<button onclick="cal.fullCalendar('refetchEvents')">refetch</button>
-</p>
-<div id='calendar' style='width:900px;margin:20px auto 0;font-family:arial'></div>
+<body style='font-size: 12px'>
+	<div id='loading'
+		style='position: absolute; top: 0; left: 0; display: none'>loading...</div>
+	<p>
+		<button onclick="cal.fullCalendar('refetchEvents')">refetch</button>
+	</p>
+	<div id='calendar'
+		style='width: 900px; margin: 20px auto 0; font-family: arial'></div>
 </body>
 </html>

@@ -121,27 +121,36 @@
 
 </script>
 <style type='text/css'>
+body {
+	font-size: 13px;
+	font-family: "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
+}
 
-	body {
-		font-size: 13px;
-		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
-		}
-
-	#calendar {
-		width: 900px;
-		margin: 40px auto;
-		}
-
+#calendar {
+	width: 900px;
+	margin: 40px auto;
+}
 </style>
 </head>
 <body>
-<button onclick="calendar.fullCalendar('select', new Date(y, m, d-1), new Date(y, m, d-1), true)">1day, allday</button>
-<button onclick="calendar.fullCalendar('select', new Date(y, m, d-1))">1day, noend, noallday</button>
-<button onclick="calendar.fullCalendar('select', new Date(y, m, d-1), null, false)">1day, noend, allday=false</button>
-<button onclick="calendar.fullCalendar('select', new Date(y, m, d, 5, 15), new Date(y, m, d, 15, 30), false)">1day, timed</button>
-<button onclick="calendar.fullCalendar('select', new Date(y, m, d-2), new Date(y, m, d), true)">3day, allday</button>
-<button onclick="calendar.fullCalendar('select', new Date(y, m, d-1, 5, 15), new Date(y, m, d+1, 15, 30), false)">3day, timed</button>
-<button onclick="calendar.fullCalendar('unselect')">unselect</button>
-<div id='calendar'></div>
+	<button
+		onclick="calendar.fullCalendar('select', new Date(y, m, d-1), new Date(y, m, d-1), true)">1day,
+		allday</button>
+	<button onclick="calendar.fullCalendar('select', new Date(y, m, d-1))">1day,
+		noend, noallday</button>
+	<button
+		onclick="calendar.fullCalendar('select', new Date(y, m, d-1), null, false)">1day,
+		noend, allday=false</button>
+	<button
+		onclick="calendar.fullCalendar('select', new Date(y, m, d, 5, 15), new Date(y, m, d, 15, 30), false)">1day,
+		timed</button>
+	<button
+		onclick="calendar.fullCalendar('select', new Date(y, m, d-2), new Date(y, m, d), true)">3day,
+		allday</button>
+	<button
+		onclick="calendar.fullCalendar('select', new Date(y, m, d-1, 5, 15), new Date(y, m, d+1, 15, 30), false)">3day,
+		timed</button>
+	<button onclick="calendar.fullCalendar('unselect')">unselect</button>
+	<div id='calendar'></div>
 </body>
 </html>

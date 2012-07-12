@@ -122,6 +122,8 @@ function AgendaView(element, calendar, viewName) {
 	var minMinute, maxMinute;
 	var colFormat;
 	
+	var seperateEventSources; //This variable inidcates if there should be rendered a seperate Column for eaxh event-source.
+	
 
 	
 	/* Rendering
@@ -171,7 +173,6 @@ function AgendaView(element, calendar, viewName) {
 		var maxd;
 		var minutes;
 		var slotNormal = opt('slotMinutes') % 15 == 0;
-		
 		s =
 			"<table style='width:100%' class='fc-agenda-days fc-border-separate' cellspacing='0'>" +
 			"<thead>" +

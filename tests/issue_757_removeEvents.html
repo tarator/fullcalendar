@@ -73,24 +73,24 @@
 
 </script>
 <style type='text/css'>
+body {
+	margin-top: 40px;
+	text-align: center;
+	font-size: 13px;
+	font-family: "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
+}
 
-	body {
-		margin-top: 40px;
-		text-align: center;
-		font-size: 13px;
-		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
-		}
-
-	#calendar {
-		width: 900px;
-		margin: 0 auto;
-		}
-
+#calendar {
+	width: 900px;
+	margin: 0 auto;
+}
 </style>
 </head>
 <body>
-<button onclick="$('#calendar').fullCalendar('removeEvents')">removeEvents</button>
-<button onclick="$('#calendar').fullCalendar('renderEvent', { title:'hey', start:'2011-01-09' }, true)">addEvent (with stick)</button>
-<div id='calendar'></div>
+	<button onclick="$('#calendar').fullCalendar('removeEvents')">removeEvents</button>
+	<button
+		onclick="$('#calendar').fullCalendar('renderEvent', { title:'hey', start:'2011-01-09' }, true)">addEvent
+		(with stick)</button>
+	<div id='calendar'></div>
 </body>
 </html>
