@@ -174,6 +174,9 @@ function AgendaView(element, calendar, viewName) {
 		var minutes;
 		var slotNormal = opt('slotMinutes') % 15 == 0;
 		var kabinen = calendar.options["kabinen"];
+		if(kabinen == undefined){
+			kabinen = {count: 1};
+		}
 		
 		s =
 			"<table style='width:100%' class='fc-agenda-days fc-border-separate' cellspacing='0'>" +
