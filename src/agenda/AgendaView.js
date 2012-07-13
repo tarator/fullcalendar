@@ -121,7 +121,7 @@ function AgendaView(element, calendar, viewName) {
 	var rtl, dis, dit;  // day index sign / translate
 	var minMinute, maxMinute;
 	var colFormat;
-	
+	var kabinen;
 	var seperateEventSources; //This variable inidcates if there should be rendered a seperate Column for eaxh event-source.
 	
 
@@ -173,7 +173,7 @@ function AgendaView(element, calendar, viewName) {
 		var maxd;
 		var minutes;
 		var slotNormal = opt('slotMinutes') % 15 == 0;
-		var kabinen = calendar.options["kabinen"];
+		kabinen = calendar.options["kabinen"];
 		if(kabinen == undefined){
 			kabinen = {count: 1};
 		}
@@ -197,7 +197,7 @@ function AgendaView(element, calendar, viewName) {
 		for (i=0; i<colCnt; i++) {
 			for(var j=0; j<kabinen.count; j++){
 				s +=
-					"<td class='fc- fc-col" + i + ' ' + contentClass + "'>" + // fc- needed for setDayID
+					"<td class='fc- fc-col" + i + ' ' + contentClass + " th-kabine"+j+"'>" + // fc- needed for setDayID
 					"<div>" +
 					"<div class='fc-day-content'>" +
 					"<div style='position:relative'>&nbsp;</div>" +
@@ -330,13 +330,17 @@ function AgendaView(element, calendar, viewName) {
 			date = colDate(i);
 			headCell = dayHeadCells.eq(i);
 			headCell.html(formatDate(date, colFormat));
-			bodyCell = dayBodyCells.eq(i);
-			if (+date == +today) {
-				bodyCell.addClass(tm + '-state-highlight fc-today');
-			}else{
-				bodyCell.removeClass(tm + '-state-highlight fc-today');
+			for(var j = 0; j< kabinen.count; j++){
+				var cnt = (kabinen.count * i) + j;
+				bodyCell = dayBodyCells.eq(cnt);
+				if (+date == +today) {
+					bodyCell.addClass(tm + '-state-highlight fc-today');
+				}else{
+					bodyCell.removeClass(tm + '-state-highlight fc-today');
+				}
+				setDayID(headCell.add(bodyCell), date);
 			}
-			setDayID(headCell.add(bodyCell), date);
+			
 		}
 	}
 	
