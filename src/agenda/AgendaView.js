@@ -265,7 +265,7 @@ function AgendaView(element, calendar, viewName) {
 		}
 		
 		slotScroller =
-			$("<div style='position:absolute;width:100%;overflow-x:hidden;overflow-y:auto'/>")
+			$("<div id='slotty' style='position:absolute;width:100%;overflow-x:hidden;overflow-y:auto'/>")
 				.appendTo(slotLayer);
 				
 		slotContent =
@@ -289,11 +289,18 @@ function AgendaView(element, calendar, viewName) {
 				"<tr class='fc-slot" + i + ' ' + (!minutes ? '' : 'fc-minor') + "'>" +
 				"<th class='fc-agenda-axis " + headerClass + "'>" +
 				((!slotNormal || !minutes) ? formatDate(d, opt('axisFormat')) : '&nbsp;') +
-				"</th>" +
-				"<td class='" + contentClass + "'>" +
-				"<div style='position:relative'>&nbsp;</div>" +
-				"</td>" +
-				"</tr>";
+				"</th>";
+				
+			for(var j = 0; j < kabinen.count; j++){
+				s+=
+					"<td class='" + contentClass + " kabine"+j+"'>" +
+					"<div style='position:relative'>&nbsp;</div>" +
+					"</td>";
+					
+			}
+				
+				
+			s += "</tr>";
 			addMinutes(d, opt('slotMinutes'));
 			slotCnt++;
 		}
