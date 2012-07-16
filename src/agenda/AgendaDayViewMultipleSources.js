@@ -6,11 +6,16 @@ function AgendaDayViewMultipleSources(element, calendar) {
 	
 	// exports
 	t.render = render;
-	calendar.options.showKabinen = true;
+	
 	
 	
 	// imports
 	AgendaView.call(t, element, calendar, 'agendaDayMultipleSources');
+	
+	//Important: set this AFTER AgendaView have been called!
+	t.showKabinen = true;
+//	calendar.showKabinen = true;
+	
 	var opt = t.opt;
 	var renderAgenda = t.renderAgenda;
 	var formatDate = calendar.formatDate;

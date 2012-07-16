@@ -61,7 +61,7 @@ function BasicEventRenderer() {
 			k, seg,
 			segs=[];
 		for (i=0; i<rowCnt; i++) {
-			row = stackSegs(sliceSegs(events, visEventsEnds, d1, d2));
+			row = stackSegs(sliceSegs(events, visEventsEnds, d1, d2), false);
 			for (j=0; j<row.length; j++) {
 				level = row[j];
 				for (k=0; k<level.length; k++) {

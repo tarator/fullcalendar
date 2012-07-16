@@ -26,6 +26,8 @@ function AgendaView(element, calendar, viewName) {
 	
 	
 	// exports
+//	calendar.showKabinen = false;
+	t.showKabinen = false; // Bind to the view...
 	t.renderAgenda = renderAgenda;
 	t.setWidth = setWidth;
 	t.setHeight = setHeight;
@@ -149,7 +151,7 @@ function AgendaView(element, calendar, viewName) {
 	
 	function updateOptions() {
 		kabinen = calendar.options.kabinen;
-		if(kabinen == undefined || calendar.options.showKabinen == undefined || calendar.options.showKabinen == false){
+		if(kabinen == undefined || t.showKabinen == undefined || t.showKabinen == false){
 			kabinen = {count: 1};
 		}
 		

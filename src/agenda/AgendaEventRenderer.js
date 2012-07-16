@@ -110,7 +110,7 @@ function AgendaEventRenderer() {
 			k, seg,
 			segs=[];
 		for (i=0; i<colCnt; i++) {
-			col = stackSegs(sliceSegs(events, visEventEnds, d, addMinutes(cloneDate(d), maxMinute-minMinute)));
+			col = stackSegs(sliceSegs(events, visEventEnds, d, addMinutes(cloneDate(d), maxMinute-minMinute)), t.showKabinen);
 			countForwardSegs(col);
 			for (j=0; j<col.length; j++) {
 				level = col[j];
@@ -280,8 +280,8 @@ function AgendaEventRenderer() {
 		if( kabinen == undefined 
 				|| event == undefined 
 				|| event.kabine == undefined
-				|| t.calendar.options.showKabinen == undefined 
-				|| t.calendar.options.showKabinen == false)
+				|| t.showKabinen == undefined 
+				|| t.showKabinen == false)
 			return 0;
 		
 		for(var i = 0; i< kabinen.count; i++){

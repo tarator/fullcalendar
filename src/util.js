@@ -26,8 +26,19 @@ function segCmp(a, b) {
 }
 
 
-function segsCollide(seg1, seg2) {
+function segsCollide(seg1, seg2, divideCabins) {
+	//Only collide if they are on the same cabin...
+	if(divideCabins == true 
+			&& !onSameCabine(seg1.event, seg2.event))
+		return false;
+		
 	return seg1.end > seg2.start && seg1.start < seg2.end;
+}
+
+function onSameCabine(event1, event2){
+	//TODO also check for cabine index here!
+	if(event1.kabine == event2.kabine) return true;
+	return false;
 }
 
 
@@ -77,7 +88,10 @@ function sliceSegs(events, visEventEnds, start, end) {
 
 
 // event rendering calculation utilities
-function stackSegs(segs) {
+/**
+ * The boolean:divideCabins tells if the cabins are divided...
+ */
+function stackSegs(segs, divideCabins) {
 	var levels = [],
 		i, len = segs.length, seg,
 		j, collide, k;
@@ -88,7 +102,7 @@ function stackSegs(segs) {
 			collide = false;
 			if (levels[j]) {
 				for (k=0; k<levels[j].length; k++) {
-					if (segsCollide(levels[j][k], seg)) {
+					if (segsCollide(levels[j][k], seg, divideCabins)) {
 						collide = true;
 						break;
 					}
