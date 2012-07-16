@@ -121,10 +121,9 @@ function AgendaView(element, calendar, viewName) {
 	var rtl, dis, dit;  // day index sign / translate
 	var minMinute, maxMinute;
 	var colFormat;
-	var kabinen;
 	var seperateEventSources; //This variable inidcates if there should be rendered a seperate Column for eaxh event-source.
 	
-
+	var kabinen;
 	
 	/* Rendering
 	-----------------------------------------------------------------------------*/
@@ -134,6 +133,8 @@ function AgendaView(element, calendar, viewName) {
 	
 	
 	function renderAgenda(c) {
+
+		
 		colCnt = c;
 		updateOptions();
 		if (!dayTable) {
@@ -147,6 +148,11 @@ function AgendaView(element, calendar, viewName) {
 	
 	
 	function updateOptions() {
+		kabinen = calendar.options.kabinen;
+		if(kabinen == undefined || calendar.options.showKabinen == undefined || calendar.options.showKabinen == false){
+			kabinen = {count: 1};
+		}
+		
 		tm = opt('theme') ? 'ui' : 'fc';
 		nwe = opt('weekends') ? 0 : 1;
 		firstDay = opt('firstDay');
@@ -173,11 +179,7 @@ function AgendaView(element, calendar, viewName) {
 		var maxd;
 		var minutes;
 		var slotNormal = opt('slotMinutes') % 15 == 0;
-		kabinen = calendar.options["kabinen"];
-		if(kabinen == undefined){
-			kabinen = {count: 1};
-		}
-		
+
 		s =
 			"<table style='width:100%' class='fc-agenda-days fc-border-separate' cellspacing='0'>" +
 			"<thead>" +

@@ -6,7 +6,7 @@ function AgendaDayViewMultipleSources(element, calendar) {
 	
 	// exports
 	t.render = render;
-	t.seperateEventSources = 1;
+	calendar.options.showKabinen = true;
 	
 	
 	// imports
