@@ -12,7 +12,7 @@
 		var y = date.getFullYear();
 		
 		$('#calendar').fullCalendar({
-			kabinen:  {count:4, names: new Array("Kabine1", "Kabine2", "Kabine3", "Kabine4")},
+			kabinen:  {count:4, names: new Array("Kabine 1", "Kabine 2", "Kabine 3", "Kabine 4")},
 			header: {
 				left: 'prev,next today',
 				center: 'title',
@@ -30,7 +30,7 @@
 					{
 						title: 'All Day Event',
 						start: new Date(y, m, 1),
-						column: "Kabine 2"
+						kabine: "Kabine 2"
 					},
 					{
 						title: 'Long Event',
@@ -44,14 +44,14 @@
 						title: 'Repeating Event',
 						start: new Date(y, m, d-3, 16, 0),
 						allDay: false,
-						column: "Kabine 1"
+						kabine: "Kabine 1"
 					},
 					{
 						id: 999,
 						title: 'Repeating Event',
 						start: new Date(y, m, d+4, 16, 0),
 						allDay: false,
-						column: "Kabine 2"
+						kabine: "Kabine 2"
 					}
 				 
 				],
