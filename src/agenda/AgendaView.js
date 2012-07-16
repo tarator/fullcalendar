@@ -189,11 +189,25 @@ function AgendaView(element, calendar, viewName) {
 			"<th class='fc-agenda-axis " + headerClass + "'>&nbsp;</th>";
 		for (i=0; i<colCnt; i++) {
 			s +=
-				"<th style='bg-color:red;' colspan='"+kabinen.count+"'class='fc- fc-col" + i + ' ' + headerClass + "'/>"; // fc- needed for setDayID
+				"<th colspan='"+kabinen.count+"'class='fc- fc-col" + i + ' ' + headerClass + "'/>"; // fc- needed for setDayID
 		}
 		s +=
 			"<th class='fc-agenda-gutter " + headerClass + "'>&nbsp;</th>" +
-			"</tr>" +
+			"</tr>";
+		if(false && t.showKabinen == true){
+			//TODO check why this doesn't work how it should...
+			//Print cabin Names
+			s += 
+				"<tr>" +
+				"<th class='fc-agenda-axis " + headerClass + "'>&nbsp;</th>";
+			for(i=0; i<kabinen.count; i++){
+				s+= "<th class='fc-col' >"+kabinen.names[i]+"</th>";
+			}
+			s += 
+				"<th class='fc-agenda-gutter " + headerClass + "'>&nbsp;</th>" +
+				"</tr>";
+		}
+		s+=
 			"</thead>" +
 			"<tbody>" +
 			"<tr>" +
