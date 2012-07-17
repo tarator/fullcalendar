@@ -497,6 +497,11 @@ function AgendaEventRenderer() {
 				origPosition = eventElement.position();
 				minuteDelta = prevMinuteDelta = 0;
 				hoverListener.start(function(cell, origCell, rowDelta, colDelta) {
+					console.log(cell);
+					console.log(origCell);
+					console.log(rowDelta);
+					console.log(colDelta);
+					console.log("------------------------------");
 					eventElement.draggable('option', 'revert', !cell);
 					clearOverlays();
 					if (cell) {
@@ -508,10 +513,10 @@ function AgendaEventRenderer() {
 								allDay = true;
 								timeElement.hide();
 								eventElement.draggable('option', 'grid', null);
-							}
+							}						
 							renderDayOverlay(
-								addDays(cloneDate(event.start), dayDelta),
-								addDays(exclEndDay(event), dayDelta)
+									addDays(cloneDate(event.start), dayDelta),
+									addDays(exclEndDay(event), dayDelta)
 							);
 						}else{
 							// on slots
@@ -521,6 +526,7 @@ function AgendaEventRenderer() {
 				}, ev, 'drag');
 			},
 			drag: function(ev, ui) {
+				console.log("### " + minuteDelta);
 				minuteDelta = Math.round((ui.position.top - origPosition.top) / slotHeight) * opt('slotMinutes');
 				if (minuteDelta != prevMinuteDelta) {
 					if (!allDay) {
@@ -560,6 +566,7 @@ function AgendaEventRenderer() {
 				newEnd = addMinutes(cloneDate(event.end), minuteDelta);
 			}
 			timeElement.text(formatDates(newStart, newEnd, opt('timeFormat')));
+			console.log("!!!!");
 		}
 		function resetElement() {
 			// convert back to original slot-event
