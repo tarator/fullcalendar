@@ -382,4 +382,23 @@ function firstDefined() {
 	}
 }
 
+/**
+ * e.g. for the values arr=[], x0=0, x1=300, cellCount=3 <br> 
+ * this method creates the following Array: <br> 
+ * [[0,100],[100,200].[200,300]] 
+ * @param arr - the array to add the values....
+ * @param x0 - left Border
+ * @param x1 - right Border
+ * @param cellCount number of cells
+ */
+function addCellsToArray(arr, x0, x1, cellCount){
+	if(arr === undefined) arr = [];
+	var offset = (x1-x0)/cellCount;
+	var prev = x0;
+	for(var i = 0; i < cellCount; i++){
+		arr[arr.length] = [prev, prev+offset];
+		prev += offset;
+	}
+	return arr;
+}
 

@@ -553,16 +553,16 @@ function AgendaView(element, calendar, viewName) {
 	
 	coordinateGrid = new CoordinateGrid(function(rows, cols) {
 		var e, n, p;
+		var x0 = 0;
 		dayHeadCells.each(function(i, _e) {
 			e = $(_e);
 			n = e.offset().left;
-			if (i) {
-				p[1] = n;
+			if(i>0){
+				addCellsToArray(cols, x0, n, 4);
 			}
-			p = [n];
-			cols[i] = p;
+			x0 = n;
 		});
-		p[1] = n + e.outerWidth();
+		addCellsToArray(cols, x0, x0 + e.outerWidth(), 4);
 		if (opt('allDaySlot')) {
 			e = allDayRow;
 			n = e.offset().top;
