@@ -535,7 +535,14 @@ function AgendaEventRenderer() {
 				trigger('eventDragStop', eventElement, event, ev, ui);
 				if (cell && (dayDelta || minuteDelta || allDay)) {
 					// changed!
-					eventDrop(this, event, dayDelta, allDay ? 0 : minuteDelta, allDay, ev, ui);
+					var realDayDelta = dayDelta;
+					if(t.showKabinen === true){
+						//TODO This only works for the DayView! If you show another view you have to calc the real dayDelta here!
+						realDayDelta = 0;
+						event.kabine = getCabinNameDelta(event.kabine, dayDelta);
+					}
+						
+					eventDrop(this, event, realDayDelta, allDay ? 0 : minuteDelta, allDay, ev, ui);
 				}else{
 					// either no change or out-of-bounds (draggable has already reverted)
 					resetElement();
@@ -560,6 +567,20 @@ function AgendaEventRenderer() {
 				timeElement.css('display', ''); // show() was causing display=inline
 				eventElement.draggable('option', 'grid', [colWidth, slotHeight]);
 				allDay = false;
+			}
+		}
+	}
+	
+	/**
+	 * Returns the new Cabine-Name for the given delta.
+	 * @param currentCabinName - current events Cabine-Name
+	 * @param delta - column change
+	 * @returns
+	 */
+	function getCabinNameDelta(currentCabinName, delta){
+		for(var i = 0; i< t.calendar.options.kabinen.count; i++){
+			if(currentCabinName === t.calendar.options.kabinen.names[i]){
+				return t.calendar.options.kabinen.names[i+delta];
 			}
 		}
 	}
