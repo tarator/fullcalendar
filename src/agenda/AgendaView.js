@@ -554,15 +554,19 @@ function AgendaView(element, calendar, viewName) {
 	coordinateGrid = new CoordinateGrid(function(rows, cols) {
 		var e, n, p;
 		var x0 = 0;
+		var cabins = 1;
+		if(t.showKabinen == true){
+			cabins = kabinen.count;
+		}
 		dayHeadCells.each(function(i, _e) {
 			e = $(_e);
 			n = e.offset().left;
 			if(i>0){
-				addCellsToArray(cols, x0, n, 4);
+				addCellsToArray(cols, x0, n, cabins);
 			}
 			x0 = n;
 		});
-		addCellsToArray(cols, x0, x0 + e.outerWidth(), 4);
+		addCellsToArray(cols, x0, x0 + e.outerWidth(), cabins);
 		if (opt('allDaySlot')) {
 			e = allDayRow;
 			n = e.offset().top;
