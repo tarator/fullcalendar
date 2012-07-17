@@ -497,11 +497,6 @@ function AgendaEventRenderer() {
 				origPosition = eventElement.position();
 				minuteDelta = prevMinuteDelta = 0;
 				hoverListener.start(function(cell, origCell, rowDelta, colDelta) {
-					console.log(cell);
-					console.log(origCell);
-					console.log(rowDelta);
-					console.log(colDelta);
-					console.log("------------------------------");
 					eventElement.draggable('option', 'revert', !cell);
 					clearOverlays();
 					if (cell) {
@@ -526,7 +521,6 @@ function AgendaEventRenderer() {
 				}, ev, 'drag');
 			},
 			drag: function(ev, ui) {
-				console.log("### " + minuteDelta);
 				minuteDelta = Math.round((ui.position.top - origPosition.top) / slotHeight) * opt('slotMinutes');
 				if (minuteDelta != prevMinuteDelta) {
 					if (!allDay) {
@@ -566,7 +560,6 @@ function AgendaEventRenderer() {
 				newEnd = addMinutes(cloneDate(event.end), minuteDelta);
 			}
 			timeElement.text(formatDates(newStart, newEnd, opt('timeFormat')));
-			console.log("!!!!");
 		}
 		function resetElement() {
 			// convert back to original slot-event
@@ -580,9 +573,6 @@ function AgendaEventRenderer() {
 	
 	/**
 	 * Returns the new Cabine-Name for the given delta.
-	 * @param currentCabinName - current events Cabine-Name
-	 * @param delta - column change
-	 * @returns
 	 */
 	function getCabinNameDelta(currentCabinName, delta){
 		for(var i = 0; i< t.calendar.options.kabinen.count; i++){
