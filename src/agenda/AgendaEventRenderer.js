@@ -501,6 +501,7 @@ function AgendaEventRenderer() {
 					clearOverlays();
 					if (cell) {
 						dayDelta = colDelta * dis;
+						var realDayDelta = dayDelta;
 						if (opt('allDaySlot') && !cell.row) {
 							// over full days
 							if (!allDay) {
@@ -508,10 +509,10 @@ function AgendaEventRenderer() {
 								allDay = true;
 								timeElement.hide();
 								eventElement.draggable('option', 'grid', null);
-							}						
+							}		
 							renderDayOverlay(
-									addDays(cloneDate(event.start), dayDelta),
-									addDays(exclEndDay(event), dayDelta)
+									addDays(cloneDate(event.start), realDayDelta),
+									addDays(exclEndDay(event), realDayDelta)
 							);
 						}else{
 							// on slots

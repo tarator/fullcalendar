@@ -31,7 +31,9 @@ function HoverListener(coordinateGrid) {
 			}else{
 				change(newCell, firstCell);
 			}
+			
 			cell = newCell;
+			//console.log(cell);
 		}
 	}
 	
