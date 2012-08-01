@@ -24,7 +24,6 @@ setDefaults({
 function AgendaView(element, calendar, viewName) {
 	var t = this;
 	
-	
 	// exports
 //	calendar.showKabinen = false;
 	t.showKabinen = false; // Bind to the view...
@@ -51,7 +50,9 @@ function AgendaView(element, calendar, viewName) {
 	t.getBodyContent = function() { return slotContent }; // !!??
 	t.getRowCnt = function() { return 1 };
 	t.getColCnt = function() { return colCnt };
-	t.getColWidth = function() { return colWidth };
+	t.getColWidth = function() {
+			return colWidth / kabinen.count; 
+	};
 	t.getSlotHeight = function() { return slotHeight };
 	t.defaultSelectionEnd = defaultSelectionEnd;
 	t.renderDayOverlay = renderDayOverlay;

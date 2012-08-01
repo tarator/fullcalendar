@@ -47,6 +47,7 @@ function AgendaEventRenderer() {
 	var calendar = t.calendar;
 	var formatDate = calendar.formatDate;
 	var formatDates = calendar.formatDates;
+	var origCabinOfEvent;
 	
 	
 	
@@ -393,6 +394,7 @@ function AgendaEventRenderer() {
 			start: function(ev, ui) {
 				trigger('eventDragStart', eventElement, event, ev, ui);
 				hideEvents(event, eventElement);
+				origCabinOfEvent = event.kabine;
 				origWidth = eventElement.width();
 				hoverListener.start(function(cell, origCell, rowDelta, colDelta) {
 					clearOverlays();
@@ -443,6 +445,7 @@ function AgendaEventRenderer() {
 				if (revert) {
 					// hasn't moved or is out of bounds (draggable has already reverted)
 					resetElement();
+					event.kabine = origCabinOfEvent;
 					eventElement.css('filter', ''); // clear IE opacity side-effects
 					showEvents(event, eventElement);
 				}else{
@@ -465,6 +468,7 @@ function AgendaEventRenderer() {
 					.width(origWidth)
 					.height('')
 					.draggable('option', 'grid', null);
+				event.kabine = origCabinOfEvent;
 				allDay = true;
 			}
 		}
@@ -488,12 +492,13 @@ function AgendaEventRenderer() {
 			zIndex: 9,
 			scroll: false,
 			grid: [colWidth, slotHeight],
-			axis: colCnt==1 ? 'y' : false,
+			//axis: colCnt==1 ? 'y' : false,
 			opacity: opt('dragOpacity'),
 			revertDuration: opt('dragRevertDuration'),
 			start: function(ev, ui) {
 				trigger('eventDragStart', eventElement, event, ev, ui);
 				hideEvents(event, eventElement);
+				origCabinOfEvent = event.kabine;
 				origPosition = eventElement.position();
 				minuteDelta = prevMinuteDelta = 0;
 				hoverListener.start(function(cell, origCell, rowDelta, colDelta) {
@@ -529,6 +534,7 @@ function AgendaEventRenderer() {
 					}
 					prevMinuteDelta = minuteDelta;
 				}
+				
 			},
 			stop: function(ev, ui) {
 				var cell = hoverListener.stop();
@@ -540,7 +546,8 @@ function AgendaEventRenderer() {
 					if(t.showKabinen === true){
 						//TODO This only works for the DayView! If you show another view you have to calc the real dayDelta here!
 						realDayDelta = 0;
-						event.kabine = getCabinNameDelta(event.kabine, dayDelta);
+						var newCab = getCabinNameDelta(event.kabine, dayDelta);
+						event.kabine = newCab;
 					}
 						
 					eventDrop(this, event, realDayDelta, allDay ? 0 : minuteDelta, allDay, ev, ui);
