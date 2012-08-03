@@ -9,6 +9,9 @@ function BasicView(element, calendar, viewName) {
 	
 	
 	// exports
+	t.showKabinen = false; // Bind to the view...
+	t.showOccupied = false;
+	t.showAllCabinsOccupied = false;
 	t.renderBasic = renderBasic;
 	t.setHeight = setHeight;
 	t.setWidth = setWidth;
