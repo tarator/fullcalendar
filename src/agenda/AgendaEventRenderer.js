@@ -64,6 +64,7 @@ function AgendaEventRenderer() {
 			if (events[i].allDay) {
 				dayEvents.push(events[i]);
 			}else{
+				if(!t.showOccupied && events[i].occupied) continue;	
 				slotEvents.push(events[i]);
 			}
 		}

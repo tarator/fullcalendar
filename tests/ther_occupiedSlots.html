@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<script type='text/javascript' src='../src/_loader.js?debug'></script>
+<script type='text/javascript'>
+
+	$(document).ready(function() {
+	
+		var date = new Date();
+		var d = date.getDate();
+		var m = date.getMonth();
+		var y = date.getFullYear();
+		
+		$('#calendar').fullCalendar({
+			kabinen:  {count:4, names: new Array("Kabine 1", "Kabine 2", "Kabine 3", "Kabine 4")},
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,agendaWeek,basicWeek,agendaDay,agendaDayMultipleSources'
+			},
+			defaultView: 'agendaDayMultipleSources',
+			eventRender: function(event, element) {
+				element.bind('dblclick', function() {
+					alert('double click!');
+				});
+				// alert shows up in linux chrome, but messes up draggable
+			},
+			editable: true,
+			eventSources: [
+				[ //EventSource 1
+					{
+						title: 'All Day Event',
+						start: new Date(y, m, 1),
+						kabine: "Kabine 2"
+					},
+					{
+						title: 'Long Event',
+						start: new Date(y, m, d-5),
+						end: new Date(y, m, d-2),
+						kabine: "Kabine 3"
+					}
+				],
+				[ //EventSource 2
+					{
+						id: 999,
+						title: 'Repeating Event',
+						start: new Date(y, m, d, 16, 0),
+						allDay: false,
+						kabine: "Kabine 1"
+					},
+					{
+						id: 999,
+						title: 'Repeating Event',
+						start: new Date(y, m, d+7,16, 0),
+						allDay: false,
+						kabine: "Kabine 2"
+					}
+				 
+				],
+				[ //EventSource 3
+				  	{
+						title: 'C1',
+						start: new Date(y, m, d, 09, 0),
+						end: new Date(y, m, d, 13, 30),
+						allDay: false,
+						kabine: "Kabine 1",
+						color: "red",
+						occupied: true,
+						editable: false
+					},
+					{
+						title: 'C4',
+						start: new Date(y, m, d, 12, 0),
+						end: new Date(y, m, d, 16, 0),
+						allDay: false,
+						kabine: "Kabine 4",
+						color: "red",
+						occupied: true,
+						editable: false
+					},
+				 	{
+						title: 'Meeting',
+						start: new Date(y, m, d, 10, 0),
+						end: new Date(y, m, d, 15, 0),
+						allDay: false,
+						kabine: "Kabine 3",
+						color: "red",
+						occupied: true,
+						editable: false
+					},
+					{
+						title: 'Lunch',
+						start: new Date(y, m, d, 12, 0),
+						end: new Date(y, m, d, 15, 0),
+						allDay: false,
+						kabine: "Kabine 2",
+						color: "red",
+						occupied: true,
+						editable: false
+					},
+					
+					{
+						title: 'Birthday Party',
+						start: new Date(y, m, d+1, 19, 0),
+						end: new Date(y, m, d+1, 22, 30),
+						allDay: false,
+						kabine: "Kabine 1",
+						color: "red",
+						occupied: true,
+						editable: false
+					},
+					{
+						title: 'Click for Google',
+						start: new Date(y, m, d, 18),
+						end: new Date(y, m, d, 20),
+						url: 'http://google.com/',
+						kabine: "Kabine 4",
+						color: "red",
+						occupied: true,
+						editable: false
+					}
+				]
+				
+			]
+		});
+		
+	});
+
+</script>
+<style type='text/css'>
+body {
+	margin-top: 40px;
+	text-align: center;
+	font-size: 13px;
+	font-family: "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
+}
+
+#calendar {
+	width: 900px;
+	margin: 0 auto;
+}
+</style>
+</head>
+<body>
+	<h1>Hello World!</h1>
+	<div id='calendar'></div>
+</body>
+</html>
