@@ -11,6 +11,10 @@ function AgendaWeekView(element, calendar) {
 	
 	// imports
 	AgendaView.call(t, element, calendar, 'agendaWeek');
+	
+	//Mark all slots, where all cabins are occupied...
+	t.showAllCabinsOccupied = true;
+	
 	var opt = t.opt;
 	var renderAgenda = t.renderAgenda;
 	var formatDates = calendar.formatDates;

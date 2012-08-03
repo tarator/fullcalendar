@@ -17,8 +17,6 @@ function AgendaDayViewMultipleSources(element, calendar) {
 	
 	// Show events which have the occupied-property set to "true"
 	t.showOccupied = true;
-//	calendar.showKabinen = true;
-
 	
 	var opt = t.opt;
 	var renderAgenda = t.renderAgenda;

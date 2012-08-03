@@ -28,6 +28,7 @@ function AgendaView(element, calendar, viewName) {
 //	calendar.showKabinen = false;
 	t.showKabinen = false; // Bind to the view...
 	t.showOccupied = false;
+	t.showAllCabinsOccupied = false;
 	t.renderAgenda = renderAgenda;
 	t.setWidth = setWidth;
 	t.setHeight = setHeight;
