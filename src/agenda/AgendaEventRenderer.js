@@ -58,10 +58,6 @@ function AgendaEventRenderer() {
 	function renderEvents(events, modifiedEventId) {
 		
 		reportEvents(events);
-		var allOccupiedEvents = [];
-		if(t.showAllCabinsOccupied){
-			allOccupiedEvents = getAllOccupiedEvents(events);
-		}
 		
 		var i, len=events.length,
 			dayEvents=[],
@@ -70,14 +66,9 @@ function AgendaEventRenderer() {
 			if (events[i].allDay) {
 				dayEvents.push(events[i]);
 			}else{
-				if(!t.showOccupied && events[i].occupied) continue;	
+				if((!t.showOccupied && events[i].occupied) || (!t.showAllCabinsOccupied && events[i].allOccupied)) continue;	
 				slotEvents.push(events[i]);
 			}
-		}
-		
-		len = allOccupiedEvents.length;
-		for(i = 0; i<len; i++){
-			slotEvents.push(allOccupiedEvents[i]);
 		}
 		if (opt('allDaySlot')) {
 			renderDaySegs(compileDaySegs(dayEvents), modifiedEventId);
@@ -85,150 +76,7 @@ function AgendaEventRenderer() {
 		}
 		renderSlotSegs(compileSlotSegs(slotEvents), modifiedEventId);
 	}
-	
-	
-	function getAllOccupiedEvents(events){
-		var allOccupiedEvents = [];
-		var slotMinutes = t.calendar.options.slotMinutes;
-		if(slotMinutes == undefined) slotMinutes = 30;
-		if(events == undefined || events.length == 0) return [];
-		var events = events.sort(eventsSortFunction);
-		for(var i = 0; i<events.length; i++){
-			var range = {
-					start: cloneDate(events[i].start),
-					end: addMinutes(cloneDate(events[i].start), slotMinutes)
-			};
-			
-			while(checkAllCabinsOccupiedInRange(range, events)){
-				range.end = addMinutes(cloneDate(range.end), slotMinutes);
-			}
-			
-			if(addMinutes(cloneDate(range.end), -slotMinutes).getTime() == range.start.getTime()){
-				range.start = addMinutes(cloneDate(range.end), slotMinutes);
-			}else{
-				var event = {
-						title: "",
-						start: range.start,
-						end: range.end,
-						color: "red",
-						editable: false
-				};
-				allOccupiedEvents.push(event);	
-			}
-		}
 
-	}
-	
-	/**
-	 * Checks if all Cabins are Occupied in the given time-range. Returns true if so, false otherwise.
-	 * @param range
-	 * @param events
-	 * @returns
-	 */
-	function checkAllCabinsOccupiedInRange(range, events){
-		var availableCabs = [];
-		for(var j = 0; j<t.calendar.options.kabinen.names.length; j++){
-			availableCabs.push({
-				name: t.calendar.options.kabinen.names[j],
-				found: false
-			});
-		}
-		for(var i = 0; i<events.length; i++){
-			if(events[i].start <= range.start && events[i].end >= range.end){
-				markCabFound(events[i].kabine, availableCabs);
-			}
-			if(allCabsMarked(availableCabs)) return true;
-		}
-		return allCabsMarked(availableCabs);
-		
-	}
-	
-	
-	
-	function markCabFound(cabineName, availableCabs){
-		for(var i = 0; i< availableCabs.length; i++){
-			if(availableCabs[i].name == cabineName){
-				availableCabs[i].found == true;
-				return;
-			}
-		}
-	}
-	
-	function allCabsMarked(availableCabs){
-		for(var i = 0; i< availableCabs.length; i++){
-			if(!availableCabs[i].found) return false;
-		}
-		return true;
-	}
-
-	
-	function eventsSortFunction(ev1, ev2){
-		var ev1Start = parseDate(ev1.start);
-		//var ev1End = parseDate(ev1.end);
-		var ev2Start = parseDate(ev2.start);
-		//var ev2End = parseDate(ev2.end);
-		return ev1Start-ev2Start;
-	}
-	
-	
-	/**
-	 * This method creates events for those Slots, which cabins are all Occupied...
-	 * @param events
-	 * TODO: remove function.
-	 */
-	function aa_getAllOccupiedEvents(events){
-		var returningArray = [];
-		var slotMinutes = t.calendar.options.slotMinutes;
-		if(slotMinutes == undefined) slotMinutes = 30;
-		var sortedEvents = events.sort(eventsSortFunction);
-		console.log(sortedEvents);
-		if(sortedEvents.length == 0) return [];
-		var event = {
-				title: "",
-				start: null,
-				end: null,
-				color: "red",
-				editable: false
-		};
-		event.start = parseDate(sortedEvents[0].start);
-		event.end = addMinutes(cloneDate(start), slotMinutes);
-		var x = 0;
-		while(x++ < 1000){
-			//Initialize available Cabins.
-			var availableCabs = [];
-			for(var j = 0; j<t.calendar.options.kabinen.names.length; j++){
-				availableCabs.push({
-					name: t.calendar.options.kabinen.names[j],
-					found: false
-				});
-			}
-			for(var i = 0; i < sortedEvents.length; i++){
-				if(start <= parseDate(sortedEvents[i].start) &&
-						end <= parseDate(sortedEvents[i].start)){
-					markCabFound(sortedEvents[i].kabine, availableCabs);				
-				}else{
-					break;
-				}
-			}
-			if(!allCabsMarked(availableCabs)){
-				start = addMinutes(cloneDate(start), slotMinutes);
-				returningArray.push(event);
-				event = {
-						title: "",
-						start: start,
-						end: end,
-						color: "red",
-						editable: false
-				};
-			}else{
-				event.end = end;
-			}
-			end = addMinutes(cloneDate(end), slotMinutes);
-			
-		}
-		
-		return [];
-	}
 	
 	
 	function clearEvents() {
