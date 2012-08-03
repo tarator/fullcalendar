@@ -188,30 +188,29 @@ function AgendaView(element, calendar, viewName) {
 			"<thead>" +
 			"<tr>" +
 			"<th class='fc-agenda-axis " + headerClass + "'>&nbsp;</th>";
+		
 		for (i=0; i<colCnt; i++) {
 			s +=
 				"<th colspan='"+kabinen.count+"'class='fc- fc-col" + i + ' ' + headerClass + "'/>"; // fc- needed for setDayID
 		}
 		s +=
 			"<th class='fc-agenda-gutter " + headerClass + "'>&nbsp;</th>" +
-			"</tr>";
-		if(false && t.showKabinen == true){
-			//TODO check why this doesn't work how it should...
+			"</tr>" +
+			"</thead>" +
+			"<tbody>";
+		
+		if(t.showKabinen == true){
 			//Print cabin Names
-			s += 
-				"<tr>" +
-				"<th class='fc-agenda-axis " + headerClass + "'>&nbsp;</th>";
+			s += "<tr>" +
+				"<th  class='fc-agenda-axis " + headerClass + "'>&nbsp;</th>";
 			for(i=0; i<kabinen.count; i++){
-				s+= "<th class='fc-col' >"+kabinen.names[i]+"</th>";
+				s+= "<th>"+kabinen.names[i]+"</th>";
 			}
-			s += 
-				"<th class='fc-agenda-gutter " + headerClass + "'>&nbsp;</th>" +
+			s += "<th class='fc-agenda-gutter " + headerClass + "'>&nbsp;</th>" +
 				"</tr>";
 		}
-		s+=
-			"</thead>" +
-			"<tbody>" +
-			"<tr>" +
+		
+		s+=	"<tr>" +
 			"<th class='fc-agenda-axis " + headerClass + "'>&nbsp;</th>";
 		for (i=0; i<colCnt; i++) {
 			for(var j=0; j<kabinen.count; j++){

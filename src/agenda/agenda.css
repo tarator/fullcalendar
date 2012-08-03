@@ -27,7 +27,7 @@
 }
 
 .fc-agenda-days .fc-col0 {
-	border-left-width: 0;
+	border-left-width: 1px;
 }
 
 /* all-day area */
