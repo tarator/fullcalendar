@@ -154,7 +154,8 @@ function AgendaView(element, calendar, viewName) {
 	function updateOptions() {
 		stationen = calendar.options.stationen;
 		if(stationen == undefined || t.showStationen == undefined || t.showStationen == false){
-			stationen = {count: 1};
+			stationen = {count: 1, names: [""]};
+			
 		}
 		
 		tm = opt('theme') ? 'ui' : 'fc';
