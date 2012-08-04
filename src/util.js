@@ -37,7 +37,7 @@ function segsCollide(seg1, seg2, divideCabins) {
 
 function onSameCabine(event1, event2){
 	//TODO also check for cabine index here!
-	if(event1.kabine == event2.kabine) return true;
+	if(event1.station == event2.station) return true;
 	return false;
 }
 

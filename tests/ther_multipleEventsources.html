@@ -12,7 +12,7 @@
 		var y = date.getFullYear();
 		
 		$('#calendar').fullCalendar({
-			kabinen:  {count:4, names: new Array("Kabine 1", "Kabine 2", "Kabine 3", "Kabine 4")},
+			stationen:  {count:4, names: new Array("Station 1", "Station 2", "Station 3", "Station 4")},
 			header: {
 				left: 'prev,next today',
 				center: 'title',
@@ -31,13 +31,13 @@
 					{
 						title: 'All Day Event',
 						start: new Date(y, m, 1),
-						kabine: "Kabine 2"
+						station: "Station 2"
 					},
 					{
 						title: 'Long Event',
 						start: new Date(y, m, d-5),
 						end: new Date(y, m, d-2),
-						kabine: "Kabine 3"
+						station: "Station 3"
 					}
 				],
 				[ //EventSource 2
@@ -46,14 +46,14 @@
 						title: 'Repeating Event',
 						start: new Date(y, m, d-3, 16, 0),
 						allDay: false,
-						kabine: "Kabine 1"
+						station: "Station 1"
 					},
 					{
 						id: 999,
 						title: 'Repeating Event',
 						start: new Date(y, m, d+4, 16, 0),
 						allDay: false,
-						kabine: "Kabine 2"
+						station: "Station 2"
 					}
 				 
 				],
@@ -62,28 +62,28 @@
 						title: 'Meeting',
 						start: new Date(y, m, d, 10, 30),
 						allDay: false,
-						kabine: "Kabine 3"
+						station: "Station 3"
 					},
 					{
 						title: 'Lunch',
 						start: new Date(y, m, d, 12, 5),
 						end: new Date(y, m, d, 14, 43),
 						allDay: false,
-						kabine: "Kabine 2"
+						station: "Station 2"
 					},
 					{
 						title: 'Birthday Party',
 						start: new Date(y, m, d+1, 19, 0),
 						end: new Date(y, m, d+1, 22, 30),
 						allDay: false,
-						kabine: "Kabine 3"
+						station: "Station 3"
 					},
 					{
 						title: 'Click for Google',
 						start: new Date(y, m, 28),
 						end: new Date(y, m, 29),
 						url: 'http://google.com/',
-						kabine: "Kabine 3"
+						station: "Station 3"
 					}
 				]
 				

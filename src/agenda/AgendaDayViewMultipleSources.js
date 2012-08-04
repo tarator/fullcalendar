@@ -13,7 +13,7 @@ function AgendaDayViewMultipleSources(element, calendar) {
 	AgendaView.call(t, element, calendar, 'agendaDayMultipleSources');
 
 	//Important: set this AFTER AgendaView have been called!
-	t.showKabinen = true;
+	t.showStationen = true;
 	
 	// Show events which have the occupied-property set to "true"
 	t.showOccupied = true;

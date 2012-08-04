@@ -25,8 +25,7 @@ function AgendaView(element, calendar, viewName) {
 	var t = this;
 	
 	// exports
-//	calendar.showKabinen = false;
-	t.showKabinen = false; // Bind to the view...
+	t.showStationen = false; // Bind to the view...
 	t.showOccupied = false;
 	t.showAllCabinsOccupied = false;
 	t.renderAgenda = renderAgenda;
@@ -53,7 +52,7 @@ function AgendaView(element, calendar, viewName) {
 	t.getRowCnt = function() { return 1 };
 	t.getColCnt = function() { return colCnt };
 	t.getColWidth = function() {
-			return colWidth / kabinen.count; 
+			return colWidth / stationen.count; 
 	};
 	t.getSlotHeight = function() { return slotHeight };
 	t.defaultSelectionEnd = defaultSelectionEnd;
@@ -128,7 +127,7 @@ function AgendaView(element, calendar, viewName) {
 	var colFormat;
 	var seperateEventSources; //This variable inidcates if there should be rendered a seperate Column for eaxh event-source.
 	
-	var kabinen;
+	var stationen;
 	
 	/* Rendering
 	-----------------------------------------------------------------------------*/
@@ -153,9 +152,9 @@ function AgendaView(element, calendar, viewName) {
 	
 	
 	function updateOptions() {
-		kabinen = calendar.options.kabinen;
-		if(kabinen == undefined || t.showKabinen == undefined || t.showKabinen == false){
-			kabinen = {count: 1};
+		stationen = calendar.options.stationen;
+		if(stationen == undefined || t.showStationen == undefined || t.showStationen == false){
+			stationen = {count: 1};
 		}
 		
 		tm = opt('theme') ? 'ui' : 'fc';
@@ -193,7 +192,7 @@ function AgendaView(element, calendar, viewName) {
 		
 		for (i=0; i<colCnt; i++) {
 			s +=
-				"<th colspan='"+kabinen.count+"'class='fc- fc-col" + i + ' ' + headerClass + "'/>"; // fc- needed for setDayID
+				"<th colspan='"+stationen.count+"'class='fc- fc-col" + i + ' ' + headerClass + "'/>"; // fc- needed for setDayID
 		}
 		s +=
 			"<th class='fc-agenda-gutter " + headerClass + "'>&nbsp;</th>" +
@@ -201,12 +200,12 @@ function AgendaView(element, calendar, viewName) {
 			"</thead>" +
 			"<tbody>";
 		
-		if(t.showKabinen == true){
+		if(t.showStationen == true){
 			//Print cabin Names
 			s += "<tr>" +
 				"<th  class='fc-agenda-axis " + headerClass + "'>&nbsp;</th>";
-			for(i=0; i<kabinen.count; i++){
-				s+= "<th>"+kabinen.names[i]+"</th>";
+			for(i=0; i<stationen.count; i++){
+				s+= "<th>"+stationen.names[i]+"</th>";
 			}
 			s += "<th class='fc-agenda-gutter " + headerClass + "'>&nbsp;</th>" +
 				"</tr>";
@@ -215,9 +214,9 @@ function AgendaView(element, calendar, viewName) {
 		s+=	"<tr>" +
 			"<th class='fc-agenda-axis " + headerClass + "'>&nbsp;</th>";
 		for (i=0; i<colCnt; i++) {
-			for(var j=0; j<kabinen.count; j++){
+			for(var j=0; j<stationen.count; j++){
 				s +=
-					"<td class='fc- fc-col" + i + ' ' + contentClass + " th-kabine"+j+"'>" + // fc- needed for setDayID
+					"<td class='fc- fc-col" + i + ' ' + contentClass + " th-station"+j+"'>" + // fc- needed for setDayID
 					"<div>" +
 					"<div class='fc-day-content'>" +
 					"<div style='position:relative'>&nbsp;</div>" +
@@ -314,9 +313,9 @@ function AgendaView(element, calendar, viewName) {
 				((!slotNormal || !minutes) ? formatDate(d, opt('axisFormat')) : '&nbsp;') +
 				"</th>";
 				
-			for(var j = 0; j < kabinen.count; j++){
+			for(var j = 0; j < stationen.count; j++){
 				s+=
-					"<td class='" + contentClass + " kabine"+j+"'>" +
+					"<td class='" + contentClass + " station"+j+"'>" +
 					"<div style='position:relative'>&nbsp;</div>" +
 					"</td>";
 					
@@ -350,8 +349,8 @@ function AgendaView(element, calendar, viewName) {
 			date = colDate(i);
 			headCell = dayHeadCells.eq(i);
 			headCell.html(formatDate(date, colFormat));
-			for(var j = 0; j< kabinen.count; j++){
-				var cnt = (kabinen.count * i) + j;
+			for(var j = 0; j< stationen.count; j++){
+				var cnt = (stationen.count * i) + j;
 				bodyCell = dayBodyCells.eq(cnt);
 				if (+date == +today) {
 					bodyCell.addClass(tm + '-state-highlight fc-today');
@@ -557,8 +556,8 @@ function AgendaView(element, calendar, viewName) {
 		var e, n, p;
 		var x0 = 0;
 		var cabins = 1;
-		if(t.showKabinen == true){
-			cabins = kabinen.count;
+		if(t.showStationen == true){
+			cabins = stationen.count;
 		}
 		dayHeadCells.each(function(i, _e) {
 			e = $(_e);

@@ -115,7 +115,7 @@ function AgendaEventRenderer() {
 			k, seg,
 			segs=[];
 		for (i=0; i<colCnt; i++) {
-			col = stackSegs(sliceSegs(events, visEventEnds, d, addMinutes(cloneDate(d), maxMinute-minMinute)), t.showKabinen);
+			col = stackSegs(sliceSegs(events, visEventEnds, d, addMinutes(cloneDate(d), maxMinute-minMinute)), t.showStationen);
 			countForwardSegs(col);
 			for (j=0; j<col.length; j++) {
 				level = col[j];
@@ -182,7 +182,7 @@ function AgendaEventRenderer() {
 			top = timePosition(seg.start, seg.start);
 			bottom = timePosition(seg.start, seg.end);
 			colI = seg.col;
-			colI += getColumnIndexOfKabine(event);
+			colI += getColumnIndexOfStation(event);
 			levelI = seg.level;
 			forward = seg.forward || 0;
 			leftmost = colContentLeft(colI*dis + dit);
@@ -279,18 +279,18 @@ function AgendaEventRenderer() {
 					
 	}
 	
-	function getColumnIndexOfKabine(event){
+	function getColumnIndexOfStation(event){
 		
-		var kabinen = t.calendar.options.kabinen;
-		if( kabinen == undefined 
+		var stationen = t.calendar.options.stationen;
+		if( stationen == undefined 
 				|| event == undefined 
-				|| event.kabine == undefined
-				|| t.showKabinen == undefined 
-				|| t.showKabinen == false)
+				|| event.station == undefined
+				|| t.showStationen == undefined 
+				|| t.showStationen == false)
 			return 0;
 		
-		for(var i = 0; i< kabinen.count; i++){
-			if(event.kabine == kabinen.names[i] || event.kabine == i){
+		for(var i = 0; i< stationen.count; i++){
+			if(event.station == stationen.names[i] || event.station == i){
 				return i;
 			}
 				
@@ -335,7 +335,7 @@ function AgendaEventRenderer() {
 			"</div>" +
 			"<div class='fc-event-content'>" +
 			"<div class='fc-event-title'>" +
-			htmlEscape(event.title) + "<br />("+htmlEscape(event.kabine)+")" +
+			htmlEscape(event.title) + "<br />("+htmlEscape(event.station)+")" +
 			"</div>" +
 			"</div>" +
 			"<div class='fc-event-bg'></div>" +
@@ -398,7 +398,7 @@ function AgendaEventRenderer() {
 			start: function(ev, ui) {
 				trigger('eventDragStart', eventElement, event, ev, ui);
 				hideEvents(event, eventElement);
-				origCabinOfEvent = event.kabine;
+				origCabinOfEvent = event.station;
 				origWidth = eventElement.width();
 				hoverListener.start(function(cell, origCell, rowDelta, colDelta) {
 					clearOverlays();
@@ -449,7 +449,7 @@ function AgendaEventRenderer() {
 				if (revert) {
 					// hasn't moved or is out of bounds (draggable has already reverted)
 					resetElement();
-					event.kabine = origCabinOfEvent;
+					event.station = origCabinOfEvent;
 					eventElement.css('filter', ''); // clear IE opacity side-effects
 					showEvents(event, eventElement);
 				}else{
@@ -472,7 +472,7 @@ function AgendaEventRenderer() {
 					.width(origWidth)
 					.height('')
 					.draggable('option', 'grid', null);
-				event.kabine = origCabinOfEvent;
+				event.station = origCabinOfEvent;
 				allDay = true;
 			}
 		}
@@ -502,7 +502,7 @@ function AgendaEventRenderer() {
 			start: function(ev, ui) {
 				trigger('eventDragStart', eventElement, event, ev, ui);
 				hideEvents(event, eventElement);
-				origCabinOfEvent = event.kabine;
+				origCabinOfEvent = event.station;
 				origPosition = eventElement.position();
 				minuteDelta = prevMinuteDelta = 0;
 				hoverListener.start(function(cell, origCell, rowDelta, colDelta) {
@@ -547,11 +547,11 @@ function AgendaEventRenderer() {
 				if (cell && (dayDelta || minuteDelta || allDay)) {
 					// changed!
 					var realDayDelta = dayDelta;
-					if(t.showKabinen === true){
+					if(t.showStationen === true){
 						//TODO This only works for the DayView! If you show another view you have to calc the real dayDelta here!
 						realDayDelta = 0;
-						var newCab = getCabinNameDelta(event.kabine, dayDelta);
-						event.kabine = newCab;
+						var newCab = getCabinNameDelta(event.station, dayDelta);
+						event.station = newCab;
 					}
 						
 					eventDrop(this, event, realDayDelta, allDay ? 0 : minuteDelta, allDay, ev, ui);
@@ -587,9 +587,9 @@ function AgendaEventRenderer() {
 	 * Returns the new Cabine-Name for the given delta.
 	 */
 	function getCabinNameDelta(currentCabinName, delta){
-		for(var i = 0; i< t.calendar.options.kabinen.count; i++){
-			if(currentCabinName === t.calendar.options.kabinen.names[i]){
-				return t.calendar.options.kabinen.names[i+delta];
+		for(var i = 0; i< t.calendar.options.stationen.count; i++){
+			if(currentCabinName === t.calendar.options.stationen.names[i]){
+				return t.calendar.options.stationen.names[i+delta];
 			}
 		}
 	}
