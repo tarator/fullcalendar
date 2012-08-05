@@ -550,7 +550,7 @@ function AgendaEventRenderer() {
 					if(t.showStationen === true){
 						//TODO This only works for the DayView! If you show another view you have to calc the real dayDelta here!
 						realDayDelta = 0;
-						var newCab = getCabinNameDelta(event.station, dayDelta);
+						var newCab = t.getStationNameDelta(event.station, dayDelta);
 						event.station = newCab;
 					}
 						
@@ -583,16 +583,7 @@ function AgendaEventRenderer() {
 		}
 	}
 	
-	/**
-	 * Returns the new Cabine-Name for the given delta.
-	 */
-	function getCabinNameDelta(currentCabinName, delta){
-		for(var i = 0; i< t.calendar.options.stationen.count; i++){
-			if(currentCabinName === t.calendar.options.stationen.names[i]){
-				return t.calendar.options.stationen.names[i+delta];
-			}
-		}
-	}
+
 	
 	
 	

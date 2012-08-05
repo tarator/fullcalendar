@@ -28,6 +28,7 @@ function AgendaView(element, calendar, viewName) {
 	t.showStationen = false; // Bind to the view...
 	t.showOccupied = false;
 	t.showAllCabinsOccupied = false;
+	t.getStationNameDelta = getStationNameDelta;
 	t.renderAgenda = renderAgenda;
 	t.setWidth = setWidth;
 	t.setHeight = setHeight;
@@ -631,7 +632,14 @@ function AgendaView(element, calendar, viewName) {
 	
 	
 	function colDate(col) { // returns dates with 00:00:00
-		return addDays(cloneDate(t.visStart), col*dis+dit);
+		if(t.showStationen == true){
+			//Don't add days when multiple cabins are shown
+			//TODO this only works in single day view! Change this if you want to show multiple stations in other views (e.g. week views...)
+			return cloneDate(t.visStart);
+		}else{
+			return addDays(cloneDate(t.visStart), col*dis+dit);
+		}
+		
 	}
 	
 	
@@ -839,7 +847,27 @@ function AgendaView(element, calendar, viewName) {
 		var cell = hoverListener.stop();
 		clearOverlays();
 		if (cell) {
+			if(t.showStationen == true){
+				var event = $(_dragElement).data("eventObject");
+				if(event != undefined){
+					event.station = t.getStationNameDelta(null, cell.col);
+				}
+			}
 			trigger('drop', _dragElement, cellDate(cell), cellIsAllDay(cell), ev, ui);
+		}
+	}
+	
+	/**
+	 * Returns the new Cabine-Name for the given delta.
+	 */
+	function getStationNameDelta(currentCabinName, delta){
+		if(currentCabinName == undefined || currentCabinName == null){
+			currentCabinName = t.calendar.options.stationen.names[0];
+		}
+		for(var i = 0; i< t.calendar.options.stationen.count; i++){
+			if(currentCabinName === t.calendar.options.stationen.names[i]){
+				return t.calendar.options.stationen.names[i+delta];
+			}
 		}
 	}
 
