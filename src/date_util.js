@@ -1,5 +1,5 @@
 
-
+fc.addMinutes = addMinutes;
 fc.addDays = addDays;
 fc.cloneDate = cloneDate;
 fc.parseDate = parseDate;
