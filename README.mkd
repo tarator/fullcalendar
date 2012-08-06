@@ -1,6 +1,14 @@
-
 FullCalendar - Full-sized drag & drop event calendar
 ====================================================
+tarator/fullcalendar
+--------------------
+This fork of fullcalendar should add the poibility to show multiple Columns (we call them station) on the single day-view.
+
+Try the following tests:
+
+    https://github.com/tarator/fullcalendar/blob/master/tests/ther_occupiedSlots.html
+    https://github.com/tarator/fullcalendar/blob/master/tests/ther_multipleEventsources.html
+
 
 Development and testing
 -----------------------
