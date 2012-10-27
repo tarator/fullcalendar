@@ -273,3 +273,7 @@ table.fc-border-separate {
 	{
 	border-top-width: 0;
 }
+
+.fc-event-hidden {
+	display: none;
+}

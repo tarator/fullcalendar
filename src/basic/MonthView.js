@@ -8,6 +8,8 @@ function MonthView(element, calendar) {
 	// exports
 	t.render = render;
 	
+
+	
 	
 	// imports
 	BasicView.call(t, element, calendar, 'month');
@@ -15,7 +17,11 @@ function MonthView(element, calendar) {
 	var renderBasic = t.renderBasic;
 	var formatDate = calendar.formatDate;
 	
+	//Important: set this AFTER AgendaView have been called!
+	t.showStationen = false;
 	
+	// Show events which have the occupied-property set to "true"
+	t.showOccupied = false;
 	
 	function render(date, delta) {
 		if (delta) {

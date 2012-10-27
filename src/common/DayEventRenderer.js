@@ -136,9 +136,13 @@ function DayEventRenderer() {
 		for (i=0; i<segCnt; i++) {
 			seg = segs[i];
 			event = seg.event;
+			
 			classes = ['fc-event', 'fc-event-skin', 'fc-event-hori'];
 			if (isEventDraggable(event)) {
 				classes.push('fc-event-draggable');
+			}
+			if(!t.showOccupied && event.occupied){
+				classes.push('fc-event-hidden');
 			}
 			if (rtl) {
 				if (seg.isStart) {
