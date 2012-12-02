@@ -130,7 +130,7 @@ function AgendaEventRenderer() {
 		}
 		return segs;
 	}
-	
+
 	
 	function slotEventEnd(event) {
 		if (event.end) {
@@ -187,26 +187,51 @@ function AgendaEventRenderer() {
 			forward = seg.forward || 0;
 			leftmost = colContentLeft(colI*dis + dit);
 			availWidth = colContentRight(colI*dis + dit) - leftmost;
+			var stationSlotCount = getStationSlotsCount(seg.event.station);
+			if(stationSlotCount < 1) stationSlotCount = 1;
 			if(event.backgroundEvent != true){
 				/* ANE6AF0O5EDR  if this is a background event use the full width... */
-				availWidth = Math.min(availWidth-6, availWidth*.95); // TODO: move this to CSS
-			}
-			
-			if (levelI) {
-				// indented and thin
-				outerWidth = availWidth / (levelI + forward + 1);
-			}else{
-				if (forward) {
-					// moderately wide, aligned left still
-					outerWidth = ((availWidth / (forward + 1)) - (12/2)) * 2; // 12 is the predicted width of resizer =
+				if(t.showStationen == true){
+					availWidth = availWidth / stationSlotCount;
+					availWidth -= 2;
 				}else{
-					// can be entire width, aligned left
-					outerWidth = availWidth;
+					availWidth = Math.min(availWidth-6, availWidth*.95); // TODO: move this to CSS
 				}
+					
+			}else{
+				
 			}
-			left = leftmost +                                  // leftmost possible
+			// ANE6AF0O5EDR
+			left = leftmost+(levelI*availWidth);
+			if(t.showStationen == true){
+				outerWidth = availWidth;
+				if(levelI >= stationSlotCount){
+					// More events than slot per cabin use the smae method than in the original fullcalendar...:
+					outerWidth = availWidth / (levelI + forward + 1);
+					left = leftmost +                                  // leftmost possible
+					(availWidth / (levelI + forward + 1) * levelI) // indentation
+					* dis + (rtl ? availWidth - outerWidth : 0);   // rtl
+				}
+			}else{
+				//Old stacking of events.
+				if (levelI) {
+					// indented and thin
+					outerWidth = availWidth / (levelI + forward + 1);
+				}else{
+					if (forward) {
+						// moderately wide, aligned left still
+						outerWidth = ((availWidth / (forward + 1)) - (12/2)) * 2; // 12 is the predicted width of resizer =
+					}else{
+						// can be entire width, aligned left
+						outerWidth = availWidth;
+					}
+				}
+				left = leftmost +                                  // leftmost possible
 				(availWidth / (levelI + forward + 1) * levelI) // indentation
 				* dis + (rtl ? availWidth - outerWidth : 0);   // rtl
+			}
+			
+			
 			seg.top = top;
 			seg.left = left;
 			seg.outerWidth = outerWidth;
@@ -281,6 +306,17 @@ function AgendaEventRenderer() {
 			}
 		}
 					
+	}
+	
+	
+
+	function getStationSlotsCount(stationName){
+		var stationen = t.calendar.options.stationen;
+		for(var i = 0; i < stationen.length; i++){
+			if(stationen[i].name == stationName)
+				return stationen[i].slots;
+		}
+		return 1;
 	}
 	
 	function getColumnIndexOfStation(event){
