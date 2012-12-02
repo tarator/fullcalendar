@@ -136,12 +136,12 @@
 	background-color: white;
 }
 .ther-agenda-cabinnames tr th{
-	border: solid #CCCCCC;
+/* 	border: solid #CCCCCC;
 	border-collapse: collapse;
-	border-width: 0 1px 1px 1px;
+	border-width: 0 1px 1px 1px; */
 }
 
 .ther-background-event{
 	/* ANE6AF0O5EDR */
-	opacity: 0.5;
+	opacity: 0.3;
 }
