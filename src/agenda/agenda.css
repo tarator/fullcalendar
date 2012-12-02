@@ -130,3 +130,16 @@
 .fc-agenda .ui-resizable-resizing { /* TODO: better selector */
 	_overflow: hidden;
 }
+
+.ther-agenda-cabinnames{
+	text-align: center;
+	background-color: white;
+}
+.ther-agenda-cabinnames tr th{
+	border: solid #CCCCCC;
+	border-collapse: collapse;
+	border-width: 0 1px 1px 1px;
+	
+	
+	
+}

@@ -198,20 +198,11 @@ function AgendaView(element, calendar, viewName) {
 		}
 		s +=
 			"<th class='fc-agenda-gutter " + headerClass + "'>&nbsp;</th>" +
-			"</tr>" +
-			"</thead>" +
+			"</tr>";
+			
+		s += "</thead>" +
 			"<tbody>";
 		
-		if(t.showStationen == true){
-			//Print cabin Names
-			s += "<tr>" +
-				"<th  class='fc-agenda-axis " + headerClass + "'>&nbsp;</th>";
-			for(i=0; i<stationen.count; i++){
-				s+= "<th>"+stationen.names[i]+"</th>";
-			}
-			s += "<th class='fc-agenda-gutter " + headerClass + "'>&nbsp;</th>" +
-				"</tr>";
-		}
 		
 		s+=	"<tr>" +
 			"<th class='fc-agenda-axis " + headerClass + "'>&nbsp;</th>";
@@ -249,17 +240,41 @@ function AgendaView(element, calendar, viewName) {
 		gutterCells = dayTable.find('.fc-agenda-gutter');
 		
 		slotLayer =
-			$("<div style='position:absolute;z-index:2;left:0;width:100%'/>")
+			$("<div id='ther_slotLayer' style='position:absolute;z-index:2;left:0;width:100%'/>")
 				.appendTo(element);
 				
+		if(t.showStationen == true){
+			//Print cabin Names
+			daySegmentContainer =
+				$("<div id='ther_cabinNames_NFC2LIFE' style='position:absolute;z-index:8;top:0;left:0'/>")
+					.appendTo(slotLayer);
+			s =
+				"<table style='width:100%' class='ther-agenda-cabinnames' cellspacing='0' name='ther_cabinNameTable_2XWE5HSJ'>";
+				
+			
+			s += "<tr>" +
+				"<th  class='fc-agenda-axis " + headerClass + "'>&nbsp;</th>";
+			for(i=0; i<stationen.count; i++){
+				s+= "<th>"+stationen.names[i]+"</th>";
+			}
+			s+= "<th class='" + headerClass + " fc-agenda-gutter'>&nbsp;</th>" +
+			"</tr>" +
+			"</table>";
+			
+			var cabinNameTables = $(s).appendTo(slotLayer);
+			axisFirstCells = axisFirstCells.add(cabinNameTables.find('th:first'));
+			gutterCells = gutterCells.add(cabinNameTables.find('th.fc-agenda-gutter'));
+			
+		}
+		
 		if (opt('allDaySlot')) {
 		
 			daySegmentContainer =
-				$("<div style='position:absolute;z-index:8;top:0;left:0'/>")
+				$("<div id='ther_daySegmentContainer' style='position:absolute;z-index:8;top:0;left:0'/>")
 					.appendTo(slotLayer);
 		
 			s =
-				"<table style='width:100%' class='fc-agenda-allday' cellspacing='0'>" +
+				"<table style='width:100%' class='fc-agenda-allday' cellspacing='0' name='ther_allDayTable_IE5WOW92'>" +
 				"<tr>" +
 				"<th class='" + headerClass + " fc-agenda-axis'>" + opt('allDayText') + "</th>" +
 				"<td>" +
@@ -287,17 +302,18 @@ function AgendaView(element, calendar, viewName) {
 			daySegmentContainer = $([]); // in jQuery 1.4, we can just do $()
 		
 		}
+
 		
 		slotScroller =
 			$("<div id='slotty' style='position:absolute;width:100%;overflow-x:hidden;overflow-y:auto'/>")
 				.appendTo(slotLayer);
 				
 		slotContent =
-			$("<div style='position:relative;width:100%;overflow:hidden'/>")
+			$("<div id='ther_slotContent' style='position:relative;width:100%;overflow:hidden'/>")
 				.appendTo(slotScroller);
 				
 		slotSegmentContainer =
-			$("<div style='position:absolute;z-index:8;top:0;left:0'/>")
+			$("<div style='position:absolute;z-index:8;top:0;left:0' id='ther_slotSegmentContainer' />")
 				.appendTo(slotContent);
 		
 		s =
