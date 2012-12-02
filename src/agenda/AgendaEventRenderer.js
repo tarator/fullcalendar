@@ -187,7 +187,11 @@ function AgendaEventRenderer() {
 			forward = seg.forward || 0;
 			leftmost = colContentLeft(colI*dis + dit);
 			availWidth = colContentRight(colI*dis + dit) - leftmost;
-			availWidth = Math.min(availWidth-6, availWidth*.95); // TODO: move this to CSS
+			if(event.backgroundEvent != true){
+				/* ANE6AF0O5EDR  if this is a background event use the full width... */
+				availWidth = Math.min(availWidth-6, availWidth*.95); // TODO: move this to CSS
+			}
+			
 			if (levelI) {
 				// indented and thin
 				outerWidth = availWidth / (levelI + forward + 1);
@@ -305,15 +309,21 @@ function AgendaEventRenderer() {
 		var skinCss = getSkinCss(event, opt);
 		var skinCssAttr = (skinCss ? " style='" + skinCss + "'" : '');
 		var classes = ['fc-event', 'fc-event-skin', 'fc-event-vert'];
-		if (isEventDraggable(event)) {
-			classes.push('fc-event-draggable');
+		if(event.backgroundEvent == true){
+			/* ANE6AF0O5EDR */
+			classes.push('ther-background-event');
+		}else{
+			if (isEventDraggable(event)) {
+				classes.push('fc-event-draggable');
+			}
+			if (seg.isStart) {
+				classes.push('fc-corner-top');
+			}
+			if (seg.isEnd) {
+				classes.push('fc-corner-bottom');
+			}
 		}
-		if (seg.isStart) {
-			classes.push('fc-corner-top');
-		}
-		if (seg.isEnd) {
-			classes.push('fc-corner-bottom');
-		}
+		
 		classes = classes.concat(event.className);
 		if (event.source) {
 			classes = classes.concat(event.source.className || []);
@@ -323,16 +333,24 @@ function AgendaEventRenderer() {
 		}else{
 			html += "div";
 		}
+		
+		
 		html +=
 			" class='" + classes.join(' ') + "'" +
 			" style='position:absolute;z-index:8;top:" + seg.top + "px;left:" + seg.left + "px;" + skinCss + "'" +
 			">" +
-			"<div class='fc-event-inner fc-event-skin'" + skinCssAttr + ">" +
-			"<div class='fc-event-head fc-event-skin'" + skinCssAttr + ">" +
-			"<div class='fc-event-time'>" +
-			htmlEscape(formatDates(event.start, event.end, opt('timeFormat'))) +
-			"</div>" +
-			"</div>" +
+			"<div class='fc-event-inner fc-event-skin'" + skinCssAttr + ">";
+		
+		if(event.backgroundEvent != true){
+			/* ANE6AF0O5EDR */
+			html += 
+				"<div class='fc-event-head fc-event-skin'" + skinCssAttr + ">" +
+				"<div class='fc-event-time'>" +
+				htmlEscape(formatDates(event.start, event.end, opt('timeFormat'))) +
+				"</div>" +
+				"</div>";
+		}
+		html+=
 			"<div class='fc-event-content'>" +
 			"<div class='fc-event-title'>" +
 			htmlEscape(event.title) + "<br />("+htmlEscape(event.station)+")" +

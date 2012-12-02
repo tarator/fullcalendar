@@ -27,6 +27,10 @@ function segCmp(a, b) {
 
 
 function segsCollide(seg1, seg2, divideCabins) {
+	//There can't be a collision with a background event.
+	if(seg1.event.backgroundEvent == true){
+		return false;
+	}
 	//Only collide if they are on the same cabin...
 	if(divideCabins == true 
 			&& !onSameCabine(seg1.event, seg2.event))
@@ -100,6 +104,7 @@ function stackSegs(segs, divideCabins) {
 		j = 0; // the level index where seg should belong
 		while (true) {
 			collide = false;
+			if(seg.event.backgroundEvent == true) break;
 			if (levels[j]) {
 				for (k=0; k<levels[j].length; k++) {
 					if (segsCollide(levels[j][k], seg, divideCabins)) {
