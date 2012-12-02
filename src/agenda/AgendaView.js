@@ -53,7 +53,7 @@ function AgendaView(element, calendar, viewName) {
 	t.getRowCnt = function() { return 1 };
 	t.getColCnt = function() { return colCnt };
 	t.getColWidth = function() {
-			return colWidth / stationen.count; 
+			return colWidth / stationen.length; 
 	};
 	t.getSlotHeight = function() { return slotHeight };
 	t.defaultSelectionEnd = defaultSelectionEnd;
@@ -155,7 +155,7 @@ function AgendaView(element, calendar, viewName) {
 	function updateOptions() {
 		stationen = calendar.options.stationen;
 		if(stationen == undefined || t.showStationen == undefined || t.showStationen == false){
-			stationen = {count: 1, names: [""]};
+			stationen = [{name: "", slots: 0}];
 			
 		}
 		
@@ -194,7 +194,7 @@ function AgendaView(element, calendar, viewName) {
 		
 		for (i=0; i<colCnt; i++) {
 			s +=
-				"<th colspan='"+stationen.count+"'class='fc- fc-col" + i + ' ' + headerClass + "'/>"; // fc- needed for setDayID
+				"<th colspan='"+stationen.length+"'class='fc- fc-col" + i + ' ' + headerClass + "'/>"; // fc- needed for setDayID
 		}
 		s +=
 			"<th class='fc-agenda-gutter " + headerClass + "'>&nbsp;</th>" +
@@ -207,7 +207,7 @@ function AgendaView(element, calendar, viewName) {
 		s+=	"<tr>" +
 			"<th class='fc-agenda-axis " + headerClass + "'>&nbsp;</th>";
 		for (i=0; i<colCnt; i++) {
-			for(var j=0; j<stationen.count; j++){
+			for(var j=0; j<stationen.length; j++){
 				s +=
 					"<td class='fc- fc-col" + i + ' ' + contentClass + " th-station"+j+"'>" + // fc- needed for setDayID
 					"<div>" +
@@ -254,8 +254,8 @@ function AgendaView(element, calendar, viewName) {
 			
 			s += "<tr>" +
 				"<th  class='fc-agenda-axis " + headerClass + "'>&nbsp;</th>";
-			for(i=0; i<stationen.count; i++){
-				s+= "<th>"+stationen.names[i]+"</th>";
+			for(i=0; i<stationen.length; i++){
+				s+= "<th>"+stationen[i].name+"</th>";
 			}
 			s+= "<th class='" + headerClass + " fc-agenda-gutter'>&nbsp;</th>" +
 			"</tr>" +
@@ -331,7 +331,7 @@ function AgendaView(element, calendar, viewName) {
 				((!slotNormal || !minutes) ? formatDate(d, opt('axisFormat')) : '&nbsp;') +
 				"</th>";
 				
-			for(var j = 0; j < stationen.count; j++){
+			for(var j = 0; j < stationen.length; j++){
 				s+=
 					"<td class='" + contentClass + " station"+j+"'>" +
 					"<div style='position:relative'>&nbsp;</div>" +
@@ -367,8 +367,8 @@ function AgendaView(element, calendar, viewName) {
 			date = colDate(i);
 			headCell = dayHeadCells.eq(i);
 			headCell.html(formatDate(date, colFormat));
-			for(var j = 0; j< stationen.count; j++){
-				var cnt = (stationen.count * i) + j;
+			for(var j = 0; j< stationen.length; j++){
+				var cnt = (stationen.length * i) + j;
 				bodyCell = dayBodyCells.eq(cnt);
 				if (+date == +today) {
 					bodyCell.addClass(tm + '-state-highlight fc-today');
@@ -575,7 +575,7 @@ function AgendaView(element, calendar, viewName) {
 		var x0 = 0;
 		var cabins = 1;
 		if(t.showStationen == true){
-			cabins = stationen.count;
+			cabins = stationen.length;
 		}
 		dayHeadCells.each(function(i, _e) {
 			e = $(_e);
@@ -878,11 +878,11 @@ function AgendaView(element, calendar, viewName) {
 	 */
 	function getStationNameDelta(currentCabinName, delta){
 		if(currentCabinName == undefined || currentCabinName == null){
-			currentCabinName = t.calendar.options.stationen.names[0];
+			currentCabinName = t.calendar.options.stationen[0].name;
 		}
-		for(var i = 0; i< t.calendar.options.stationen.count; i++){
-			if(currentCabinName === t.calendar.options.stationen.names[i]){
-				return t.calendar.options.stationen.names[i+delta];
+		for(var i = 0; i< t.calendar.options.stationen.length; i++){
+			if(currentCabinName === t.calendar.options.stationen[i].name){
+				return t.calendar.options.stationen[i+delta].name;
 			}
 		}
 	}

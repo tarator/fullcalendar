@@ -293,8 +293,8 @@ function AgendaEventRenderer() {
 				|| t.showStationen == false)
 			return 0;
 		
-		for(var i = 0; i< stationen.count; i++){
-			if(event.station == stationen.names[i] || event.station == i){
+		for(var i = 0; i< stationen.length; i++){
+			if(event.station == stationen[i].name || event.station == i){
 				return i;
 			}
 				

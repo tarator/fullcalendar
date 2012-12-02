@@ -12,7 +12,10 @@
 		var y = date.getFullYear();
 		
 		$('#calendar').fullCalendar({
-			stationen:  {count:4, names: new Array("Station 1", "Station 2", "Station 3", "Station 4")},
+			stationen:  [{name:"Station 1", slots: 3},
+						{name:"Station 1", slots: 3},
+						{name:"Station 2", slots: 2}, 
+						{name:"Station 3", slots: 1}],
 			header: {
 				left: 'prev,next today',
 				center: 'title',
