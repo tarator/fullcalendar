@@ -193,7 +193,7 @@ function AgendaEventRenderer() {
 				/* ANE6AF0O5EDR  if this is a background event use the full width... */
 				if(t.showStationen == true){
 					availWidth = availWidth / stationSlotCount;
-					availWidth -= 2;
+					availWidth -= 0;
 				}else{
 					availWidth = Math.min(availWidth-6, availWidth*.95); // TODO: move this to CSS
 				}
