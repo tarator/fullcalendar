@@ -206,19 +206,10 @@ function AgendaView(element, calendar, viewName) {
 		
 		s+=	"<tr>" +
 			"<th class='fc-agenda-axis " + headerClass + "'>&nbsp;</th>";
-		
-		slotCount = 0;
-		for(i = 0; i<stationen.length; i++){
-			slotCount += stationen[i].slots;
-		}
-		percentPerSlot = 96/slotCount;
 		for (i=0; i<colCnt; i++) {
 			for(var j=0; j<stationen.length; j++){
 				s +=
-					"<td class='aaa1 fc- fc-col" + i + ' ' + contentClass + " th-station"+j+"' style='width:"+percentPerSlot*stationen[j].slots+"%' >" + // fc- needed for setDayID
-					//"<td class='fc- fc-col" + i + ' ' + contentClass + " th-station"+j+"' >" + // fc- needed for setDayID
-					
-					
+					"<td class='fc- fc-col" + i + ' ' + contentClass + " th-station"+j+"'>" + // fc- needed for setDayID
 					"<div>" +
 					"<div class='fc-day-content'>" +
 					"<div style='position:relative'>&nbsp;</div>" +
@@ -264,7 +255,7 @@ function AgendaView(element, calendar, viewName) {
 			s += "<tr>" +
 				"<th  class='fc-agenda-axis " + headerClass + "'>&nbsp;</th>";
 			for(i=0; i<stationen.length; i++){
-				s+= "<th style='width:"+percentPerSlot*stationen[i].slots+"%' >"+stationen[i].name+"</th>";
+				s+= "<th>"+stationen[i].name+"</th>";
 			}
 			s+= "<th class='" + headerClass + " fc-agenda-gutter'>&nbsp;</th>" +
 			"</tr>" +
@@ -342,7 +333,7 @@ function AgendaView(element, calendar, viewName) {
 				
 			for(var j = 0; j < stationen.length; j++){
 				s+=
-					"<td style='width:"+percentPerSlot*stationen[j].slots+"%' class='" + contentClass + " station"+j+"'>" +
+					"<td class='" + contentClass + " station"+j+"'>" +
 					"<div style='position:relative'>&nbsp;</div>" +
 					"</td>";
 					
@@ -452,6 +443,7 @@ function AgendaView(element, calendar, viewName) {
 				.prev()
 				.addClass('fc-last');
 		}
+		
 		colWidth = Math.floor((slotTableWidth - axisWidth) / colCnt);
 		setOuterWidth(dayHeadCells.slice(0, -1), colWidth);
 	}
@@ -583,10 +575,6 @@ function AgendaView(element, calendar, viewName) {
 		var x0 = 0;
 		var cabins = 1;
 		if(t.showStationen == true){
-//			cabins = 0;
-//			for(i = 0; i<stationen.length; i++){
-//				cabins +=stationen[i].slots;
-//			}
 			cabins = stationen.length;
 		}
 		dayHeadCells.each(function(i, _e) {
