@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<script type='text/javascript' src='../src/_loader.js?debug'></script>
+<script type='text/javascript'>
+
+	$(document).ready(function() {
+	
+		var date = new Date();
+		var d = date.getDate();
+		var m = date.getMonth();
+		var y = date.getFullYear();
+		
+		$('#calendar').fullCalendar({
+			stationen:  [{name:"Station 1", slots: 3},
+						{name:"Station 2", slots: 3},
+						{name:"Station 3", slots: 2}, 
+						{name:"Station 4", slots: 1}],
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,agendaWeek,basicWeek,agendaDay,agendaDayMultipleSources'
+			},
+			defaultView: 'agendaDayMultipleSources',
+			eventRender: function(event, element) {
+				element.bind('dblclick', function() {
+					alert('double click!');
+				});
+				// alert shows up in linux chrome, but messes up draggable
+			},
+			editable: true,
+			eventSources: [
+			               
+				{
+				    events: [ // put the array in the `events` property
+				        {
+				            title  : 'event1',
+				            start  : '2010-01-01'
+				        },
+				        {
+				            title  : 'event2',
+				            start  : '2010-01-05',
+				            end    : '2010-01-07'
+				        },
+				        {
+				            title  : 'event3',
+				            start  : '2010-01-09 12:30:00',
+				        }
+				    ],
+				    color: 'black',     // an option!
+				    textColor: 'yellow', // an option!
+				    eventSourceName: "testSourceName"
+				},
+				[ //EventSource 1
+					{
+						title: 'All Day Event',
+						start: new Date(y, m, 1),
+						station: "Station 2"
+					},
+					{
+						title: 'Long Event',
+						start: new Date(y, m, d-5),
+						end: new Date(y, m, d-2),
+						station: "Station 3"
+					}
+				],
+				[ //EventSource 2
+					{
+						id: 999,
+						title: 'Repeating Event',
+						start: new Date(y, m, d, 16, 0),
+						allDay: false,
+						station: "Station 1"
+					},
+					{
+						id: 999,
+						title: 'Repeating Event',
+						start: new Date(y, m, d+7,16, 0),
+						allDay: false,
+						station: "Station 2"
+					}
+				 
+				],
+				[ //EventSource 3
+				  	{
+						title: 'C1',
+						start: new Date(y, m, d, 11, 30),
+						end: new Date(y, m, d, 13, 30),
+						allDay: false,
+						station: "Station 1",
+						color: "red",
+						occupied: true,
+						editable: false
+					},
+					{
+						title: 'C4',
+						start: new Date(y, m, d, 12, 0),
+						end: new Date(y, m, d, 16, 0),
+						allDay: false,
+						station: "Station 4",
+						color: "red",
+						occupied: true,
+						editable: false
+					},
+				 	{
+						title: 'Meeting',
+						start: new Date(y, m, d, 12, 00),
+						end: new Date(y, m, d, 15, 0),
+						allDay: false,
+						station: "Station 3",
+						color: "red",
+						occupied: true,
+						editable: false
+					},
+					{
+						title: 'Lunch',
+						start: new Date(y, m, d, 12, 0),
+						end: new Date(y, m, d, 15, 0),
+						allDay: false,
+						station: "Station 2",
+						color: "red",
+						occupied: true,
+						editable: false
+					},
+					
+					{
+						title: 'Birthday Party',
+						start: new Date(y, m, d+1, 19, 0),
+						end: new Date(y, m, d+1, 22, 30),
+						allDay: false,
+						station: "Station 1",
+						color: "red",
+						occupied: true,
+						editable: false
+					},
+					{
+						title: 'Click for Google',
+						start: new Date(y, m, d, 18),
+						end: new Date(y, m, d, 20),
+						allDay: false,
+						url: 'http://google.com/',
+						station: "Station 4",
+						color: "red",
+						occupied: true,
+						editable: false
+					}
+				],
+				[ //EventSource allOccupied
+				  	{
+						title: 'Alle besetzt',
+						start: new Date(y, m, d, 12, 00),
+						end: new Date(y, m, d, 13, 00),
+						allDay: false,
+						color: "red",
+						allOccupied: true,
+						editable: false
+					}
+				 ]
+				
+			]
+		});
+		
+	});
+
+</script>
+<style type='text/css'>
+body {
+	margin-top: 40px;
+	text-align: center;
+	font-size: 13px;
+	font-family: "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
+}
+
+#calendar {
+	width: 900px;
+	margin: 0 auto;
+}
+</style>
+</head>
+<body>
+	<h1>Hello World!</h1>
+	<div id='calendar'></div>
+	<a href="#" onclick="$('#calendar').fullCalendar('refetchEvents', new Array('bla','foo'));" >refetch Events</a>
+</body>
+</html>

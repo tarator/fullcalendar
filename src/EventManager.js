@@ -55,7 +55,7 @@ function EventManager(options, _sources) {
 	}
 	
 	
-	function fetchEvents(start, end) {
+	function fetchEvents(start, end, eventSources) {
 		rangeStart = start;
 		rangeEnd = end;
 		cache = [];
