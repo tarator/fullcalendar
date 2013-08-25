@@ -58,18 +58,27 @@ function EventManager(options, _sources) {
 	function fetchEvents(start, end, eventSources) {
 		rangeStart = start;
 		rangeEnd = end;
-		cache = [];
+		//cache = [];
 		var fetchID = ++currentFetchID;
 		var len = sources.length;
-		pendingSourceCnt = len;
+		if (eventSources)
+			pendingSourceCnt = eventSources.length;
+		else 
+			pendingSourceCnt = len;
 		for (var i=0; i<len; i++) {
 			if(eventSources){
-				if (contains(eventSources, sources[i].eventSourceName))
+				if (contains(eventSources, sources[i].eventSourceName)){
+					// remove all client events from that source
+					cache = $.grep(cache, function(e) {
+						return !isSourcesEqual(e.source, sources[i]);
+					});
 					fetchEventSource(sources[i], fetchID);
+				}
 			}else{
+				cache = [];
 				fetchEventSource(sources[i], fetchID);
 			}
-			
+
 		}
 	}
 
@@ -91,7 +100,6 @@ function EventManager(options, _sources) {
 			}
 		});
 	}
-
 
 	function _fetchEventSource(source, callback) {
 		var i;
