@@ -29,6 +29,7 @@
 				// alert shows up in linux chrome, but messes up draggable
 			},
 			editable: true,
+
 			eventSources: [
 			               
 				{
@@ -49,7 +50,7 @@
 				    ],
 				    color: 'black',     // an option!
 				    textColor: 'yellow', // an option!
-				    eventSourceName: "testSourceName"
+				    eventSourceName: "bla"
 				},
 				[ //EventSource 1
 					{
@@ -180,6 +181,6 @@ body {
 <body>
 	<h1>Hello World!</h1>
 	<div id='calendar'></div>
-	<a href="#" onclick="$('#calendar').fullCalendar('refetchEvents', new Array('bla','foo'));" >refetch Events</a>
+	<a href="#" onclick="$('#calendar').fullCalendar('refetchEvents', new Array('bla'));" >refetch Events</a>
 </body>
 </html>
