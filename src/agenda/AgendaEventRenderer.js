@@ -380,16 +380,15 @@ function AgendaEventRenderer() {
 		if(event.backgroundEvent != true){
 			/* ANE6AF0O5EDR */
 			html += 
-				"<div class='fc-event-head fc-event-skin'" + skinCssAttr + ">" +
-				"<div class='fc-event-time'>" +
-				htmlEscape(formatDates(event.start, event.end, opt('timeFormat'))) +
+				"<div class='fc-event-skin'" + skinCssAttr + ">" +
+				"<div class='fc-event-time'>"+
 				"</div>" +
 				"</div>";
 		}
 		html+=
 			"<div class='fc-event-content'>" +
 			"<div class='fc-event-title'>" +
-			htmlEscape(event.title) + "<br />("+htmlEscape(event.station)+")" +
+			htmlEscape(event.title) +
 			"</div>" +
 			"</div>" +
 			"<div class='fc-event-bg'></div>" +

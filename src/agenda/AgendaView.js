@@ -253,9 +253,9 @@ function AgendaView(element, calendar, viewName) {
 				
 			
 			s += "<tr>" +
-				"<th  class='fc-agenda-axis " + headerClass + "'>&nbsp;</th>";
+				"<th class='fc-agenda-axis" + headerClass + "'>&nbsp;</th>";
 			for(i=0; i<stationen.length; i++){
-				s+= "<th>"+stationen[i].name+"</th>";
+				s+= "<th style = 'width: " +(100.0/(stationen.length+0.5))+"%'>"+stationen[i].name+"</th>";
 			}
 			s+= "<th class='" + headerClass + " fc-agenda-gutter'>&nbsp;</th>" +
 			"</tr>" +
