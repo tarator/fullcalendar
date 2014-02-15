@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<script type='text/javascript' src='../src/_loader.js?debug'></script>
+<script type='text/javascript'>
+
+	$(document).ready(function() {
+	
+		var date = new Date();
+		var d = date.getDate();
+		var m = date.getMonth();
+		var y = date.getFullYear();
+		
+		$('#calendar').fullCalendar({
+			stationen:  [{name:"Station 1", slots: 3},
+						{name:"Station 2", slots: 3},
+						{name:"Station 3", slots: 2}, 
+						{name:"Station 4", slots: 1}],
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,agendaWeek,basicWeek,agendaDay,agendaDayMultipleSources'
+				
+			},
+			allDaySlot: false,
+			defaultView: 'agendaDayMultipleSources',
+			eventRender: function(event, element) {
+				element.bind('dblclick', function() {
+					alert('double click!');
+				});
+				// alert shows up in linux chrome, but messes up draggable
+			},
+			editable: true,
+			eventSources: [
+				[ //EventSource 1
+					{
+						title: 'All Day Event',
+						start: new Date(y, m, 1),
+						station: "Station 2"
+					},
+					{
+						title: 'Long Event',
+						start: new Date(y, m, d-5),
+						end: new Date(y, m, d-2),
+						station: "Station 3"
+					}
+				],
+				[ //EventSource Background events
+					{
+						title: 'Bg 1',
+						id: 10,
+						start: new Date(y, m, d, 16, 5),
+						end: new Date(y, m, d, 19, 43),
+						allDay: false,
+						backgroundEvent: true,
+						station: "Station 2"
+					},
+					{
+						title: 'Bg3',
+						id: 11,
+						start: new Date(y, m, d, 06, 5),
+						end: new Date(y, m, d, 16, 43),
+						allDay: false,
+						backgroundEvent: true,
+						station: "Station 3"
+					}
+				],
+				[ //EventSource 6
+					{
+						id: 999,
+						title: 'Lalal',
+						start: new Date(y, m, d-3, 16, 0),
+						allDay: false,
+						station: "Station 1"
+					},
+					{
+						id: 999,
+						title: 'Lalalalal',
+						start: new Date(y, m, d+4, 16, 0),
+						allDay: false,
+						station: "Station 2"
+					}
+				 
+				],
+				[ //EventSource 2
+					{
+						id: 999,
+						title: 'Repeating Event',
+						start: new Date(y, m, d-3, 16, 0),
+						allDay: false,
+						station: "Station 1"
+					},
+					{
+						id: 999,
+						title: 'Repeating Event',
+						start: new Date(y, m, d+4, 16, 0),
+						allDay: false,
+						station: "Station 2"
+					}
+				 
+				],
+				[ //EventSource 3
+				 	{
+						title: 'Meeting',
+						start: new Date(y, m, d, 10, 30),
+						allDay: false,
+						station: "Station 3"
+					},
+					{
+						title: 'Lunch',
+						start: new Date(y, m, d, 12, 5),
+						end: new Date(y, m, d, 14, 43),
+						allDay: false,
+						station: "Station 2"
+					},
+					{
+						title: 'Birthday Party',
+						start: new Date(y, m, d+1, 19, 0),
+						end: new Date(y, m, d+1, 22, 30),
+						allDay: false,
+						station: "Station 3"
+					},
+					{
+						title: 'Click for Google',
+						start: new Date(y, m, 28),
+						end: new Date(y, m, 29),
+						url: 'http://google.com/',
+						station: "Station 3"
+					},
+					{
+						title: 'Bg 1',
+						id: 10,
+						start: new Date(y, m, d, 16, 5),
+						end: new Date(y, m, d, 19, 43),
+						allDay: false,
+						backgroundEvent: true,
+						editable: false,
+						station: "Station 2"
+					},
+					{
+						title: 'Bg3',
+						id: 11,
+						start: new Date(y, m, d, 06, 5),
+						end: new Date(y, m, d, 16, 43),
+						allDay: false,
+						backgroundEvent: true,
+						editable: false,
+						station: "Station 3"
+					}
+				]
+				
+			]
+		});
+		
+	});
+
+</script>
+<style type='text/css'>
+body {
+	margin-top: 40px;
+	text-align: center;
+	font-size: 13px;
+	font-family: "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
+}
+
+#calendar {
+	width: 900px;
+	margin: 0 auto;
+}
+</style>
+</head>
+<body>
+	<h1>Hello World!</h1>
+	<div id='calendar'></div>
+</body>
+</html>
