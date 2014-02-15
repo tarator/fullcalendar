@@ -345,9 +345,13 @@ function AgendaEventRenderer() {
 		var skinCss = getSkinCss(event, opt);
 		var skinCssAttr = (skinCss ? " style='" + skinCss + "'" : '');
 		var classes = ['fc-event', 'fc-event-skin', 'fc-event-vert'];
+		
+		var eventZIndex = 8;
 		if(event.backgroundEvent == true){
 			/* ANE6AF0O5EDR */
 			classes.push('ther-background-event');
+			// Force Background-Events to be behind other events.
+			eventZIndex = 7;
 		}else{
 			if (isEventDraggable(event)) {
 				classes.push('fc-event-draggable');
@@ -373,7 +377,7 @@ function AgendaEventRenderer() {
 		
 		html +=
 			" class='" + classes.join(' ') + "'" +
-			" style='position:absolute;z-index:8;top:" + seg.top + "px;left:" + seg.left + "px;" + skinCss + "'" +
+			" style='position:absolute;z-index:"+eventZIndex+";top:" + seg.top + "px;left:" + seg.left + "px;" + skinCss + "'" +
 			">" +
 			"<div class='fc-event-inner fc-event-skin'" + skinCssAttr + ">";
 		
