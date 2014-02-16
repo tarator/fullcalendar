@@ -258,7 +258,7 @@ table.fc-border-separate {
 }
 
 .fc-border-separate th,.fc-border-separate td {
-	border-width: 1px 0 0 1px;
+	border-width: 1px 1px 1px 1px;
 }
 
 .fc-border-separate th.fc-last,.fc-border-separate td.fc-last {

@@ -252,10 +252,9 @@ function AgendaView(element, calendar, viewName) {
 				"<table style='width:100%' class='ther-agenda-cabinnames' cellspacing='0' name='ther_cabinNameTable_2XWE5HSJ'>";
 				
 			
-			s += "<tr>" +
-				"<th class='fc-agenda-axis" + headerClass + "'>&nbsp;</th>";
+			s += "<tr>" + "<th class='fc-agenda-axis fc-widget-header'>&nbsp;</th>";
 			for(i=0; i<stationen.length; i++){
-				s+= "<th style = 'width: " +(100.0/(stationen.length+0.5))+"%'>"+stationen[i].name+"</th>";
+				s+= "<td class = 'fc-widget-content' style = 'width: " +(93/stationen.length)+"%; font-size: 70%'><b>"+stationen[i].name+"</b></td>";
 			}
 			s+= "<th class='" + headerClass + " fc-agenda-gutter'>&nbsp;</th>" +
 			"</tr>" +
