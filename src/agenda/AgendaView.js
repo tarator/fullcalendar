@@ -333,9 +333,10 @@ function AgendaView(element, calendar, viewName) {
 			for(var j = 0; j < stationen.length; j++){
 				s+=
 					"<td class='" + contentClass + " station"+j+"'>" +
-					"<div style='position:relative'>&nbsp;</div>" +
+					"<div style='position:relative; color: lightgrey; text-align: center'>" +
+					((!slotNormal || !minutes) ? formatDate(d, opt('axisFormat')) : '&nbsp;') +
+					"</div>" +
 					"</td>";
-					
 			}
 				
 				
