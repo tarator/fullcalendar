@@ -542,8 +542,6 @@ function AgendaView(element, calendar, viewName) {
 						var hours = Math.floor(mins/60);
 						clickDate.setHours(hours);
 						clickDate.setMinutes(mins%60 + minMinute);
-					}else{
-						console.log("ACHTUNG: Zeitpunkt des Klicks konnte nicht berechnet werden! (XDHFI3).");
 					}
 					if (!eventElement.hasClass('ui-draggable-dragging') &&
 							!eventElement.hasClass('ui-resizable-resizing')) {
