@@ -65,8 +65,12 @@ function AgendaView(element, calendar, viewName) {
 	t.dragStop = dragStop;
 	
 	
+	
 	// imports
 	View.call(t, element, calendar, viewName);
+	// use AgendaViews implementation of eventElementHandlers:
+	t.eventElementHandlers = eventElementHandlers;
+	
 	OverlayManager.call(t);
 	SelectionManager.call(t);
 	AgendaEventRenderer.call(t);
@@ -80,6 +84,9 @@ function AgendaView(element, calendar, viewName) {
 	var daySelectionMousedown = t.daySelectionMousedown;
 	var slotSegHtml = t.slotSegHtml;
 	var formatDate = calendar.formatDate;
+	
+
+	
 	
 	
 	// locals
@@ -505,6 +512,55 @@ function AgendaView(element, calendar, viewName) {
 				trigger('dayClick', dayBodyCells[col], date, true, ev);
 			}
 		}
+	}
+	
+	function eventElementHandlers(event, eventElement) {
+		eventElement
+			.click(function(ev) {
+					
+					var col = Math.min(colCnt-1, Math.floor((ev.pageX - dayTable.offset().left - axisWidth) / colWidth));
+					var clickDate = colDate(col);
+					
+					var colCount = 1;
+					var prevTr = $("tr.fc-slot0");
+					for(colCount = 1; true; colCount++){
+						var nextTr = $("tr.fc-slot"+colCount);
+						if(nextTr.size() == 0){
+							// No slot-tr exists anymore...
+							colCount = -10
+							break;
+						}
+						if(ev.pageY >= prevTr.offset().top && ev.pageY <= nextTr.offset().top){
+							break;
+						}
+						prevTr = nextTr;
+					}
+					colCount--;
+					
+					if (colCount>=0) {
+						var mins = colCount * opt('slotMinutes');
+						var hours = Math.floor(mins/60);
+						clickDate.setHours(hours);
+						clickDate.setMinutes(mins%60 + minMinute);
+					}else{
+						console.log("ACHTUNG: Zeitpunkt des Klicks konnte nicht berechnet werden! (XDHFI3).");
+					}
+					if (!eventElement.hasClass('ui-draggable-dragging') &&
+							!eventElement.hasClass('ui-resizable-resizing')) {
+								return trigger('eventClick', this, event, ev, clickDate);
+					}
+				
+			})
+			.hover(
+				function(ev) {
+					trigger('eventMouseover', this, event, ev);
+				},
+				function(ev) {
+					trigger('eventMouseout', this, event, ev);
+				}
+			);
+		// TODO: don't fire eventMouseover/eventMouseout *while* dragging is occuring (on subject element)
+		// TODO: same for resizing
 	}
 	
 	
