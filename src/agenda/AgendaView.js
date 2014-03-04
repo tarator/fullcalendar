@@ -500,6 +500,8 @@ function AgendaView(element, calendar, viewName) {
 	function slotClick(ev) {
 		if (!opt('selectable')) { // if selectable, SelectionManager will worry about dayClick
 			var col = Math.min(colCnt-1, Math.floor((ev.pageX - dayTable.offset().left - axisWidth) / colWidth));
+			var stationNumber = Math.min((stationen.length)-1, Math.floor((ev.pageX - dayTable.offset().left - axisWidth) / (colWidth/stationen.length)));
+			
 			var date = colDate(col);
 			var rowMatch = this.parentNode.className.match(/fc-slot(\d+)/); // TODO: maybe use data
 			if (rowMatch) {
@@ -507,9 +509,9 @@ function AgendaView(element, calendar, viewName) {
 				var hours = Math.floor(mins/60);
 				date.setHours(hours);
 				date.setMinutes(mins%60 + minMinute);
-				trigger('dayClick', dayBodyCells[col], date, false, ev);
+				trigger('dayClick', dayBodyCells[col], date, false, ev, t.getStationNameDelta(null, stationNumber));
 			}else{
-				trigger('dayClick', dayBodyCells[col], date, true, ev);
+				trigger('dayClick', dayBodyCells[col], date, true, ev, t.getStationNameDelta(null, stationNumber));
 			}
 		}
 	}
@@ -517,7 +519,7 @@ function AgendaView(element, calendar, viewName) {
 	function eventElementHandlers(event, eventElement) {
 		eventElement
 			.click(function(ev) {
-					
+					var stationNumber = Math.min((stationen.length)-1, Math.floor((ev.pageX - dayTable.offset().left - axisWidth) / (colWidth/stationen.length)));
 					var col = Math.min(colCnt-1, Math.floor((ev.pageX - dayTable.offset().left - axisWidth) / colWidth));
 					var clickDate = colDate(col);
 					
@@ -545,7 +547,7 @@ function AgendaView(element, calendar, viewName) {
 					}
 					if (!eventElement.hasClass('ui-draggable-dragging') &&
 							!eventElement.hasClass('ui-resizable-resizing')) {
-								return trigger('eventClick', this, event, ev, clickDate);
+								return trigger('eventClick', this, event, ev, clickDate, t.getStationNameDelta(null, stationNumber));
 					}
 				
 			})
