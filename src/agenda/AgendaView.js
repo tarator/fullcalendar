@@ -16,6 +16,7 @@ setDefaults({
 	maxTime: 24
 });
 
+var MOUSEMOVE_TRIGGER_TIME = 85;
 
 // TODO: make it work in quirks mode (event corners, all-day height)
 // TODO: test liquid width, especially in IE6
@@ -494,7 +495,7 @@ function AgendaView(element, calendar, viewName) {
 	function slotBind(cells) {
 		cells.click(slotClick)
 			.mousedown(slotSelectionMousedown);
-		cells.mouseover(slotMouseover);
+		cells.mousemove(slotMousemove);
 	}
 	
 	
@@ -517,7 +518,12 @@ function AgendaView(element, calendar, viewName) {
 		}
 	}
 	
-	function slotMouseover(ev){
+	var lastSlotMouseMoveDate = new Date();
+	function slotMousemove(ev){
+		var tmpDate = new Date();
+		if(tmpDate.getTime()-lastSlotMouseMoveDate.getTime() < MOUSEMOVE_TRIGGER_TIME) return false;
+		lastSlotMouseMoveDate = tmpDate;
+		
 		var col = Math.min(colCnt-1, Math.floor((ev.pageX - dayTable.offset().left - axisWidth) / colWidth));
 		var stationNumber = Math.min((stationen.length)-1, Math.floor((ev.pageX - dayTable.offset().left - axisWidth) / (colWidth/stationen.length)));
 		
@@ -528,12 +534,12 @@ function AgendaView(element, calendar, viewName) {
 			var hours = Math.floor(mins/60);
 			date.setHours(hours);
 			date.setMinutes(mins%60 + minMinute);
-			trigger('slotMouseover', dayBodyCells[col], date, false, ev, t.getStationNameDelta(null, stationNumber));
+			trigger('slotMousemove', dayBodyCells[col], date, false, ev, t.getStationNameDelta(null, stationNumber));
 		}else{
-			trigger('slotMouseover', dayBodyCells[col], date, true, ev, t.getStationNameDelta(null, stationNumber));
+			trigger('slotMousemove', dayBodyCells[col], date, true, ev, t.getStationNameDelta(null, stationNumber));
 		}
 	}
-	
+	var lastEventMouseMoveDate = new Date();
 	function eventElementHandlers(event, eventElement) {
 		eventElement
 			.click(function(ev) {
@@ -578,6 +584,12 @@ function AgendaView(element, calendar, viewName) {
 				}
 			)
 			.mousemove(function(ev){
+				var tmpDate = new Date();
+				if(tmpDate.getTime()-lastEventMouseMoveDate.getTime() < MOUSEMOVE_TRIGGER_TIME){
+					return false;
+				}
+				lastEventMouseMoveDate = tmpDate;
+				
 				var stationNumber = Math.min((stationen.length)-1, Math.floor((ev.pageX - dayTable.offset().left - axisWidth) / (colWidth/stationen.length)));
 				var col = Math.min(colCnt-1, Math.floor((ev.pageX - dayTable.offset().left - axisWidth) / colWidth));
 				var clickDate = colDate(col);
