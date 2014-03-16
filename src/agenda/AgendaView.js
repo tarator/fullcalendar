@@ -16,7 +16,7 @@ setDefaults({
 	maxTime: 24
 });
 
-var MOUSEMOVE_TRIGGER_TIME = 85;
+var MOUSEMOVE_TRIGGER_TIME = 40;
 
 // TODO: make it work in quirks mode (event corners, all-day height)
 // TODO: test liquid width, especially in IE6
