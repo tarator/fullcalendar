@@ -494,6 +494,7 @@ function AgendaView(element, calendar, viewName) {
 	function slotBind(cells) {
 		cells.click(slotClick)
 			.mousedown(slotSelectionMousedown);
+		cells.mouseover(slotMouseover);
 	}
 	
 	
@@ -516,6 +517,23 @@ function AgendaView(element, calendar, viewName) {
 		}
 	}
 	
+	function slotMouseover(ev){
+		var col = Math.min(colCnt-1, Math.floor((ev.pageX - dayTable.offset().left - axisWidth) / colWidth));
+		var stationNumber = Math.min((stationen.length)-1, Math.floor((ev.pageX - dayTable.offset().left - axisWidth) / (colWidth/stationen.length)));
+		
+		var date = colDate(col);
+		var rowMatch = this.parentNode.className.match(/fc-slot(\d+)/); // TODO: maybe use data
+		if (rowMatch) {
+			var mins = parseInt(rowMatch[1]) * opt('slotMinutes');
+			var hours = Math.floor(mins/60);
+			date.setHours(hours);
+			date.setMinutes(mins%60 + minMinute);
+			trigger('slotMouseover', dayBodyCells[col], date, false, ev, t.getStationNameDelta(null, stationNumber));
+		}else{
+			trigger('slotMouseover', dayBodyCells[col], date, true, ev, t.getStationNameDelta(null, stationNumber));
+		}
+	}
+	
 	function eventElementHandlers(event, eventElement) {
 		eventElement
 			.click(function(ev) {
@@ -529,7 +547,7 @@ function AgendaView(element, calendar, viewName) {
 						var nextTr = $("tr.fc-slot"+colCount);
 						if(nextTr.size() == 0){
 							// No slot-tr exists anymore...
-							colCount = -10
+							colCount = -10;
 							break;
 						}
 						if(ev.pageY >= prevTr.offset().top && ev.pageY <= nextTr.offset().top){
@@ -558,7 +576,39 @@ function AgendaView(element, calendar, viewName) {
 				function(ev) {
 					trigger('eventMouseout', this, event, ev);
 				}
-			);
+			)
+			.mousemove(function(ev){
+				var stationNumber = Math.min((stationen.length)-1, Math.floor((ev.pageX - dayTable.offset().left - axisWidth) / (colWidth/stationen.length)));
+				var col = Math.min(colCnt-1, Math.floor((ev.pageX - dayTable.offset().left - axisWidth) / colWidth));
+				var clickDate = colDate(col);
+				
+				var colCount = 1;
+				var prevTr = $("tr.fc-slot0");
+				for(colCount = 1; true; colCount++){
+					var nextTr = $("tr.fc-slot"+colCount);
+					if(nextTr.size() == 0){
+						// No slot-tr exists anymore...
+						colCount = -10;
+						break;
+					}
+					if(ev.pageY >= prevTr.offset().top && ev.pageY <= nextTr.offset().top){
+						break;
+					}
+					prevTr = nextTr;
+				}
+				colCount--;
+				
+				if (colCount>=0) {
+					var mins = colCount * opt('slotMinutes');
+					var hours = Math.floor(mins/60);
+					clickDate.setHours(hours);
+					clickDate.setMinutes(mins%60 + minMinute);
+				}
+				if (!eventElement.hasClass('ui-draggable-dragging') &&
+						!eventElement.hasClass('ui-resizable-resizing')) {
+							return trigger('eventMousemove', this, event, ev, clickDate, t.getStationNameDelta(null, stationNumber));
+				}
+			});
 		// TODO: don't fire eventMouseover/eventMouseout *while* dragging is occuring (on subject element)
 		// TODO: same for resizing
 	}

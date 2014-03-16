@@ -19,6 +19,7 @@
 
 	$(document).ready(function() {
 		$('#calendar').fullCalendar({
+			
 			//weekends: false,
 			//defaultView: 'agendaWeek',
 			
@@ -30,6 +31,10 @@
 			editable: true,
 			weekMode: 'variable',
 			//isRTL: true,
+			stationen: [{name:"Station 1", slots: 3},
+						{name:"Station 2", slots: 3},
+						{name:"Station 3", slots: 2}, 
+						{name:"Station 4", slots: 1}],
 			
 			viewDisplay: function(view) {
 				console.log('viewDisplay');
@@ -54,7 +59,12 @@
 				//console.log(ev);
 				console.log(this);
 			},
-			
+			slotMouseover: function(dayDate, allDay, ev, view) {
+				console.log('slotMouseover - ' + dayDate + ', allDay:' + allDay + ' - ' + view.title);
+				//console.log(ev);
+				console.log(this);
+			},
+						
 			selectable: true,
 			select: function(start, end, allDay) {
 				console.log('select', start, end, allDay);
@@ -86,6 +96,11 @@
 				//console.log(view);
 				//console.log(this);
 				//return false;
+			},
+			eventMousemove: function(event, jsEvent, time, station) {
+				console.log('eventMousemove - ' + time + ' - ' + station);
+				//console.log(ev);
+				console.log(this);
 			},
 			
 			
