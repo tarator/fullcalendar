@@ -71,7 +71,7 @@ function View(element, calendar, viewName) {
 	
 	
 	function isEventResizable(event) { // but also need to make sure the seg.isEnd == true
-		return isEventEditable(event) && !opt('disableResizing');
+		return isEventEditable(event) && firstDefined(event.resizable, (event.source || {}).resizable, !opt('disableResizing'));
 	}
 	
 	
