@@ -95,6 +95,8 @@ function AgendaView(element, calendar, viewName) {
 	var dayTable;
 	var dayHead;
 	var dayHeadCells;
+	var dayFoot;
+	var dayFootCells;
 	var dayBody;
 	var dayBodyCells;
 	var dayBodyCellInners;
@@ -231,10 +233,23 @@ function AgendaView(element, calendar, viewName) {
 			"<td class='fc-agenda-gutter " + contentClass + "'>&nbsp;</td>" +
 			"</tr>" +
 			"</tbody>" +
+			"<tfoot>" +
+			"<tr>" +
+			"<th class='fc-agenda-axis " + headerClass + "'>&nbsp;</th>";
+		for (i=0; i<colCnt; i++) {
+			s +=
+				"<th colspan='"+stationen.length+"'class='fc- fc-col" + i + ' ' + headerClass + "'/>"; // fc- needed for setDayID
+		}
+				
+		s += "<th class='fc-agenda-gutter " + headerClass + "'>&nbsp;</th>" +
+			"</tr>" +
+			"</tfoot>" +	
 			"</table>";
 		dayTable = $(s).appendTo(element);
 		dayHead = dayTable.find('thead');
+		dayFoot = dayTable.find('tfoot');
 		dayHeadCells = dayHead.find('th').slice(1, -1);
+		dayFootCells = dayFoot.find('th').slice(1, -1);
 		dayBody = dayTable.find('tbody');
 		dayBodyCells = dayBody.find('td').slice(0, -1);
 		dayBodyCellInners = dayBodyCells.find('div.fc-day-content div');
@@ -242,6 +257,7 @@ function AgendaView(element, calendar, viewName) {
 		dayBodyFirstCellStretcher = dayBodyFirstCell.find('> div');
 		
 		markFirstLast(dayHead.add(dayHead.find('tr')));
+		markFirstLast(dayFoot.add(dayFoot.find('tr')));
 		markFirstLast(dayBody.add(dayBody.find('tr')));
 		
 		axisFirstCells = dayHead.find('th:first');
@@ -368,6 +384,7 @@ function AgendaView(element, calendar, viewName) {
 	function updateCells() {
 		var i;
 		var headCell;
+		var footCell;
 		var bodyCell;
 		var date;
 		var today = clearTime(new Date());
@@ -375,6 +392,8 @@ function AgendaView(element, calendar, viewName) {
 			date = colDate(i);
 			headCell = dayHeadCells.eq(i);
 			headCell.html(formatDate(date, colFormat));
+			footCell = dayFootCells.eq(i);
+			footCell.html(formatDate(date, colFormat));
 			for(var j = 0; j< stationen.length; j++){
 				var cnt = (stationen.length * i) + j;
 				bodyCell = dayBodyCells.eq(cnt);
@@ -384,6 +403,7 @@ function AgendaView(element, calendar, viewName) {
 					bodyCell.removeClass(tm + '-state-highlight fc-today');
 				}
 				setDayID(headCell.add(bodyCell), date);
+				setDayID(footCell.add(bodyCell), date);
 			}
 			
 		}
@@ -454,6 +474,7 @@ function AgendaView(element, calendar, viewName) {
 		
 		colWidth = Math.floor((slotTableWidth - axisWidth) / colCnt);
 		setOuterWidth(dayHeadCells.slice(0, -1), colWidth);
+		setOuterWidth(dayFootCells.slice(0, -1), colWidth);
 	}
 	
 
@@ -696,6 +717,14 @@ function AgendaView(element, calendar, viewName) {
 			cabins = stationen.length;
 		}
 		dayHeadCells.each(function(i, _e) {
+			e = $(_e);
+			n = e.offset().left;
+			if(i>0){
+				addCellsToArray(cols, x0, n, cabins);
+			}
+			x0 = n;
+		});
+		dayFootCells.each(function(i, _e) {
 			e = $(_e);
 			n = e.offset().left;
 			if(i>0){
